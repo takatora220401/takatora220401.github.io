@@ -53,19 +53,19 @@ footer {
 }
 
 
-.misc-grid {
+.index-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
 
-.misc-card img {
+.index-card img {
     width: 100%;
     height: auto;
     border-radius: 5px;
 }
 
-.misc-card h2 {
+.index-card h2 {
     margin-top: 10px;
     margin-bottom: 5px;
     font-size: 14px;
