@@ -1,0 +1,26 @@
+.topic-header h2 {
+    margin-top: 0;
+}
+
+.topic-header p {
+    font-size: 14px;
+    color: #555;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #1f2933;
+}
+
+pre {
+    background-color: #1f2933;
+    color: #e5e7eb;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 13px;
+}
+
+code {
+    font-family: Consolas, Monaco, monospace;
+}

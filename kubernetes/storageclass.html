@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Deep-dive into StorageClass | Kubernetes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/topic.css">
+</head>
+<body>
+
+<header>
+    <h1>DevOps道場</h1>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="../vmware/vmware-index.html">VMware</a>
+        <a href="../kubernetes/kubernetes-index.html">Kubernetes</a>
+        <a href="../aws/aws-index.html">AWS</a>
+        <a href="../gcp/gcp-index.html">Google Cloud</a>
+        <a href="../misc/misc-index.html">MISC</a>
+        <a href="../about.html">About</a>
+    </nav>
+</header>
+
+<main>
+
+    <!-- Page title -->
+    <div class="card topic-header">
+        <h2>Deep-dive into StorageClass</h2>
+        <p>
+            StorageClass is a Kubernetes resource that defines how storage is dynamically
+            provisioned in a cluster.
+        </p>
+    </div>
+
+    <!-- Overview -->
+    <div class="card">
+        <h3>What is StorageClass?</h3>
+        <p>
+            A <strong>StorageClass</strong> provides a way for administrators to describe
+            different “classes” of storage. These classes map to different
+            quality-of-service levels, performance characteristics, or backend storage systems.
+        </p>
+    </div>
+
+    <!-- Why it matters -->
+    <div class="card">
+        <h3>Why StorageClass is Important</h3>
+        <ul>
+            <li>Enables dynamic volume provisioning</li>
+            <li>Decouples application teams from storage implementation</li>
+            <li>Supports multiple storage backends in the same cluster</li>
+            <li>Improves automation and scalability</li>
+        </ul>
+    </div>
+
+    <!-- How it works -->
+    <div class="card">
+        <h3>How StorageClass Works</h3>
+        <p>
+            When a PersistentVolumeClaim (PVC) references a StorageClass:
+        </p>
+        <ol>
+            <li>Kubernetes finds the referenced StorageClass</li>
+            <li>The associated provisioner is triggered</li>
+            <li>A PersistentVolume (PV) is dynamically created</li>
+            <li>The PVC is bound to the PV</li>
+        </ol>
+    </div>
+
+    <!-- Example -->
+    <div class="card">
+        <h3>Example StorageClass</h3>
+        <pre><code>
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp3
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+        </code></pre>
+    </div>
+
+    <!-- Related topics -->
+    <div class="card">
+        <h3>Related Topics</h3>
+        <ul>
+            <li>PersistentVolume (PV)</li>
+            <li>PersistentVolumeClaim (PVC)</li>
+            <li>CSI Drivers</li>
+            <li>Volume Binding Modes</li>
+        </ul>
+    </div>
+
+</main>
+
+<footer>
+    © 2026 takatora
+</footer>
+
+</body>
+</html>
