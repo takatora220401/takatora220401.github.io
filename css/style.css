@@ -75,6 +75,10 @@ blockquote {
   margin: 12px 0;
   color: #555;
 }
+/* for list indentation */ 
+.list-toc {
+  padding-left: 2.5rem; /* try 1.5rem–3rem */
+}
 
 /* For a lock of paragragh*/
 .bio {
