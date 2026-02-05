@@ -71,6 +71,9 @@ body {
 /* For a lock of paragragh*/
 .bio {
   white-space: pre-line;
+  line-height: 1.7;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* For HOME, About and topi details pages*/
