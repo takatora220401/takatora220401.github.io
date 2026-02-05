@@ -1,98 +1,110 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Deep-dive into StorageClass | Kubernetes</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/topic.css">
+  <meta charset="UTF-8" />
+  <title>Understanding Pod Lifecycle | My Tech Blog</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
 
-<header>
-    <h1>DevOps道場</h1>
-    <nav>
-        <a href="../index.html">Home</a>
-        <a href="../vmware/vmware-index.html">VMware</a>
-        <a href="../kubernetes/kubernetes-index.html">Kubernetes</a>
-        <a href="../aws/aws-index.html">AWS</a>
-        <a href="../gcp/gcp-index.html">Google Cloud</a>
-        <a href="../misc/misc-index.html">MISC</a>
-        <a href="../about.html">About</a>
+  <div class="site-container">
+
+    <!-- Header -->
+    <header class="site-header">
+      <h1>Understanding Pod Lifecycle</h1>
+      <p class="tagline">
+        Kubernetes · Updated: 2026-01-18
+      </p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <a href="/index.html">HOME</a>
+      <a href="/k8s/k8s-index.html" class="active">Kubernetes</a>
+      <a href="/aws/aws-index.html">AWS</a>
+      <a href="/gcp/gcp-index.html">Google Cloud</a>
+      <a href="vm/vm-index.html">VMware</a>
+      <a href="/auto/auto-index.html">Automation</a>
+      <a href="/db/db-index.html">DB</a>
+      <a href="/network/network-index.html">Networking</a>
+      <a href="/about.html">About</a>
     </nav>
-</header>
 
-<main>
-    <div class="topic-container">
+    <!-- Article Content -->
+    <main class="content">
+      <article class="info-card">
 
-        <!-- Page title -->
-        <div class="card topic-header">
-            <h2>Deep-dive into StorageClass</h2>
-            <p>
-                StorageClass is a Kubernetes resource that defines how storage is dynamically
-                provisioned in a cluster.
-            </p>
-        </div>
+        <p>
+          Kubernetes Pods go through several states during their lifetime.
+          Understanding these states is essential when debugging restarts,
+          readiness issues, or unexpected terminations.
+        </p>
 
-        <div class="card">
-            <h3>What is StorageClass?</h3>
-            <p>
-                A <strong>StorageClass</strong> provides a way for administrators to describe
-                different “classes” of storage. These classes map to different
-                quality-of-service levels, performance characteristics, or backend storage systems.
-            </p>
-        </div>
+        <h2>Pod Phases</h2>
 
-        <div class="card">
-            <h3>Why StorageClass is Important</h3>
-            <ul>
-                <li>Enables dynamic volume provisioning</li>
-                <li>Decouples application teams from storage implementation</li>
-                <li>Supports multiple storage backends in the same cluster</li>
-                <li>Improves automation and scalability</li>
-            </ul>
-        </div>
+        <p>
+          Kubernetes defines a high-level <strong>phase</strong> for each Pod.
+          This is not a state machine, but a summary of where the Pod is in its lifecycle.
+        </p>
 
-        <div class="card">
-            <h3>How StorageClass Works</h3>
-            <ol>
-                <li>Kubernetes finds the referenced StorageClass</li>
-                <li>The associated provisioner is triggered</li>
-                <li>A PersistentVolume (PV) is dynamically created</li>
-                <li>The PVC is bound to the PV</li>
-            </ol>
-        </div>
+        <ul>
+          <li><strong>Pending</strong> – Pod has been accepted but containers are not running yet</li>
+          <li><strong>Running</strong> – At least one container is running</li>
+          <li><strong>Succeeded</strong> – All containers exited successfully</li>
+          <li><strong>Failed</strong> – At least one container terminated with failure</li>
+          <li><strong>Unknown</strong> – Pod state could not be obtained</li>
+        </ul>
 
-        <div class="card">
-            <h3>Example StorageClass</h3>
-            <pre><code>
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast-storage
-provisioner: kubernetes.io/aws-ebs
-parameters:
-  type: gp3
-reclaimPolicy: Delete
-volumeBindingMode: WaitForFirstConsumer
-            </code></pre>
-        </div>
+        <h2>Example: Inspecting Pod Status</h2>
 
-        <div class="card">
-            <h3>Related Topics</h3>
-            <ul>
-                <li>PersistentVolume (PV)</li>
-                <li>PersistentVolumeClaim (PVC)</li>
-                <li>CSI Drivers</li>
-                <li>Volume Binding Modes</li>
-            </ul>
-        </div>
+        <p>
+          You can inspect the current state of a Pod using <code>kubectl</code>.
+        </p>
 
-    </div>
-</main>
+        <pre><code>
+kubectl get pod my-app-pod -o wide
+kubectl describe pod my-app-pod
+        </code></pre>
 
-<footer>
-    © 2026 takatora
-</footer>
+        <p>
+          The <code>describe</code> output is especially useful for understanding
+          scheduling issues, image pull errors, or probe failures.
+        </p>
+
+        <h2>Common Pitfall: Restart Loops</h2>
+
+        <p>
+          A Pod in <code>Running</code> phase does not necessarily mean the application
+          is healthy. Containers may be restarting continuously.
+        </p>
+
+        <pre><code>
+kubectl get pod my-app-pod
+NAME           READY   STATUS    RESTARTS   AGE
+my-app-pod     1/1     Running   12         5m
+        </code></pre>
+
+        <p>
+          In this case, the Pod is technically running, but the restart count
+          tells a very different story.
+        </p>
+
+        <h2>Closing Thoughts</h2>
+
+        <p>
+          Pod lifecycle concepts are simple on paper but become critical
+          when diagnosing real production issues. Always correlate Pod phase,
+          container state, events, and logs before jumping to conclusions.
+        </p>
+
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 My Tech Blog</p>
+    </footer>
+
+  </div>
 
 </body>
 </html>
