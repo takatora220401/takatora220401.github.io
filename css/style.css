@@ -68,7 +68,7 @@ body {
   color: #ffffff;
 }
 
-/* For HOME and About */
+/* For HOME, About and topi details pages*/
 /* Content */
 .content {
   display: grid;
@@ -82,6 +82,40 @@ body {
   text-align: left;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border-left: 6px solid #2563eb;
+}
+/* Article lists */
+.info-card ul {
+  margin-left: 2.2rem;   /* increases indent */
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.info-card li {
+  margin-bottom: 3px;
+}
+
+/* Code blocks */
+.info-card pre {
+  background-color: #2b2b2b; /* dark gray */
+  padding: 16px 18px;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.info-card code {
+  color: #f8f8f2; /* off-white text */
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.info-card p code {
+  background-color: #f1f3f5;
+  color: #c7254e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
 }
 
 
