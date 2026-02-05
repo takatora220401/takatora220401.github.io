@@ -1,114 +1,75 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DevOps道場 | Home</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/topic.css">
+    <title>Tech Notes | Home</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-    <h1>DevOps道場</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="vmware/vmware-index.html">VMware</a>
-        <a href="kubernetes/kubernetes-index.html">Kubernetes</a>
-        <a href="aws/aws-index.html">AWS</a>
-        <a href="gcp/gcp-index.html">Google Cloud</a>
-        <a href="misc/misc-index.html">MISC</a>
-        <a href="about.html">About</a>
-    </nav>
-</header>
+    <div class="page-container">
 
-<main>
+        <!-- Header -->
+        <header class="site-header">
+            <h1>Tech Notes</h1>
+            <p class="tagline">Practical notes on cloud, infrastructure, and automation</p>
+        </header>
 
-    <!-- Welcome -->
-    <div class="card">
-        <h2>Welcome to DevOps道場</h2>
-        <p>
-            DevOps道場 is a personal knowledge hub for learning, practicing,
-            and deep-diving into DevOps technologies.
-            <br><br>
-            This site is built as a collection of structured notes,
-            hands-on guides, and conceptual deep-dives across cloud,
-            infrastructure, and Kubernetes ecosystems.
-        </p>
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <a class="tab active" href="../index.html">Home</a>
+            <a class="tab" href="../k8s/k8s-index.html">Kubernetes</a>
+            <a class="tab" href="../aws/aws-index.html">AWS</a>
+            <a class="tab" href="../gcp/gcp-index.html">Google Cloud</a>
+            <a class="tab" href="../vm/vm-index.html">VMware</a>
+            <a class="tab" href="../auto/auto-index.html">Automation</a>
+            <a class="tab" href="../db/db-index.html">DB</a>
+            <a class="tab" href="../network/network-index.html">Networking</a>
+            <a class="tab" href="../about.html">About</a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+
+            <section class="info-block">
+                <h2>What is this blog?</h2>
+                <p>
+                    This blog is a collection of hands-on notes, examples, and explanations
+                    around modern infrastructure and cloud technologies.
+                    It’s written primarily as a learning journal, but structured so others
+                    can benefit from it as well.
+                </p>
+            </section>
+
+            <section class="info-block">
+                <h2>What you’ll find here</h2>
+                <ul>
+                    <li>Kubernetes troubleshooting and architecture notes</li>
+                    <li>AWS and Google Cloud practical guides</li>
+                    <li>VMware administration tips</li>
+                    <li>Automation with scripts and pipelines</li>
+                    <li>Networking and database fundamentals</li>
+                </ul>
+            </section>
+
+            <section class="info-block">
+                <h2>How to use this site</h2>
+                <p>
+                    Use the subject tabs above to browse topics.
+                    Each subject contains a list of articles.
+                    Clicking an article title takes you to a detailed page
+                    with explanations, commands, and code snippets.
+                </p>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>© 2026 Tech Notes</p>
+        </footer>
+
     </div>
-
-    <!-- Main learning areas -->
-    <div class="card">
-        <h2>Main Learning Areas</h2>
-
-        <div class="index-grid">
-            <div class="card index-card">
-                <h3>
-                    <a href="vmware/vmware-index.html">VMware</a>
-                </h3>
-                <p>
-                    Virtualization fundamentals, vSphere components,
-                    and on-prem infrastructure concepts.
-                </p>
-            </div>
-
-            <div class="card index-card">
-                <h3>
-                    <a href="kubernetes/kubernetes-index.html">Kubernetes</a>
-                </h3>
-                <p>
-                    Core Kubernetes concepts, architecture,
-                    and deep-dives into real-world components.
-                </p>
-            </div>
-
-            <div class="card index-card">
-                <h3>
-                    <a href="aws/aws-index.html">AWS</a>
-                </h3>
-                <p>
-                    Amazon Web Services fundamentals,
-                    networking, compute, and storage services.
-                </p>
-            </div>
-
-            <div class="card index-card">
-                <h3>
-                    <a href="gcp/gcp-index.html">Google Cloud</a>
-                </h3>
-                <p>
-                    GCP services, architecture patterns,
-                    and comparisons with AWS.
-                </p>
-            </div>
-
-            <div class="card index-card">
-                <h3>
-                    <a href="misc/misc-index.html">Misc</a>
-                </h3>
-                <p>
-                    Roadmaps, notes, comparisons,
-                    and topics that don’t fit neatly elsewhere.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Personal note -->
-    <div class="card">
-        <h2>DevOps道場設立のきっかけ</h2>
-        <p>
-            インプットだけだと、これからDevOpsの道を極めたいと考えています。
-            <br><br>
-            If something here helps you understand a concept faster,
-            then this dojo is doing its job.
-        </p>
-    </div>
-
-</main>
-
-<footer>
-    © 2026 takatora
-</footer>
 
 </body>
 </html>
