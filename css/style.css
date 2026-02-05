@@ -92,10 +92,6 @@ body {
 
 .info-card p {
   color: #444;
-}
-
-/* Accent card */
-.info-card.highlight {
   border-left: 6px solid #2563eb;
 }
 
