@@ -68,6 +68,13 @@ body {
   color: #ffffff;
 }
 
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 12px 0;
+}
+
+
 /* For a lock of paragragh*/
 .bio {
   white-space: pre-line;
