@@ -68,6 +68,11 @@ body {
   color: #ffffff;
 }
 
+/* For a lock of paragragh*/
+.bio {
+  white-space: pre-line;
+}
+
 /* For HOME, About and topi details pages*/
 /* Content */
 .content {
