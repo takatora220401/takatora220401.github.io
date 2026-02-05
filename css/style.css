@@ -70,7 +70,7 @@ body {
 
 /* For a lock of paragragh*/
 .bio {
-  white-space: pre-wrap;
+  white-space: pre-line;
 }
 
 /* For HOME, About and topi details pages*/
