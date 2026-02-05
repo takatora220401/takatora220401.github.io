@@ -82,18 +82,15 @@ body {
   border-radius: 14px;
   text-align: left;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #c7d2fe; /* soft blue */
 }
 
-.info-card h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #111;
-}
-
-.info-card p {
-  color: #444;
+/* Strong highlight */
+.info-card.highlight {
   border-left: 6px solid #2563eb;
+  background: linear-gradient(180deg, #ffffff, #f8faff);
 }
+
 
 /* Footer */
 .site-footer {
