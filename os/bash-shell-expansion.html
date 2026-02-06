@@ -34,7 +34,7 @@
       <article class="info-card">
         <p>Bashの基本の1つ、シェル展開についてまとめます。</p>
         <br>
-        
+
         <h2>1. Bashのシェル展開とは</h2>
         <p>placeholderに値を代入する機能です。構文の形式によって代入される値が異なります。例えば、ブレース展開{1..4}には1 2 3 4が代入されます。その他にも次のようなシェル展開があります。</p>
         <ul>
@@ -123,16 +123,13 @@ $ ls *.txt
 02.txt  04.txt  06.txt  08.txt  10.txt  12.txt  14.txt  16.txt  18.txt  20.txt</code></pre>
         <br>
         <h2>3. 展開時の単語分割(Word Splitting)</h2>
-        <p></p>
+        <p>エスケープされていなかった場合、次のシェル展開の結果に対して単語分割が実行されます。単語分割の基準となる文字はIFS変数に依存します。</p>
+        <ul>
+            <li>パラメータ展開</li>
+            <li>コマンド置換</li>
+            <li>算術展開</li>
+        </ul>
         <br>
-
-        Word splitting is a process that shell performs to split the result of some unquoted expansion into separate words. 
-Only performed on the result of unquoted
-parameter expansion
-command substitution
-arithmetic expansion
-Character used to recognize the separation points are defined in IFS variable
-Internal Field Separator
 
         <h2>4. 展開の順番</h2>
         <p>こんな順番で処理が行われてるみたいです。</p>
