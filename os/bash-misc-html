@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <header class="site-header">
-      <h1>Bash - データストリーム</h1>
+      <h1>Bash - エスケープ</h1>
       <p class="tagline">
         Last Updated: 2026-02-06
       </p>
@@ -33,7 +33,7 @@
     <main class="content">
       <article class="info-card">
 
-        <p>Bashの基本の1つ、データストリームについてまとめます。</p>
+        <p>Bashの基本のあれこれについてまとめます。</p>
         <br>
         <h2>1. Bash変数とは</h2>
         <br>
