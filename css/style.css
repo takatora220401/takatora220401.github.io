@@ -118,7 +118,7 @@ blockquote {
 /* Code blocks */
 .info-card pre {
   background-color: #2b2b2b; /* dark gray */
-  padding: 2px 18px;
+  padding: 5px 18px;
   border-radius: 10px;
   overflow-x: auto;
   margin: 16px 0;
