@@ -71,7 +71,7 @@ body {
 blockquote {
   background: #f5f5f5;
   border-left: 4px solid #ccc;
-  padding: 9px 16px;
+  padding: 6px 16px;
   margin: 12px 0;
   color: #555;
   white-space: pre-wrap;
@@ -118,10 +118,11 @@ blockquote {
 /* Code blocks */
 .info-card pre {
   background-color: #2b2b2b; /* dark gray */
-  padding: 16px 18px;
+  padding: 6px 18px;
   border-radius: 10px;
   overflow-x: auto;
   margin: 16px 0;
+  text-align: left;
 }
 
 .info-card code {
