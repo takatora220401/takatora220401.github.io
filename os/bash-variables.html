@@ -67,6 +67,7 @@
           <li><strong>$PWD</strong> - ワーキングディレクトリ（ファイルシステム上の現在地）</li>
         </ul>
         <br>
+
         <h3>ローカル変数</h3>
         <ul>
           <li><strong>$PS1</strong> - コマンドプロンプトの表示</li>
@@ -74,17 +75,30 @@
           <li><strong>$IFS</strong> - stringを分割するField Separator</li>
         </ul>
         <br>
+
         <h2>変数の新規作成方法</h2>
         <pre><code>
           # 変数Exampleを定義。= の周りに" "(Space)はNGです。
           Example=example1
-          # 確認
-          $ echo $Example 
-          example1
         </code></pre>
         <h2>変数の呼び出し</h2>
+        <p><code>$変数名</code>または<code>${変数名}</code>で呼び出します。$だけで使うことが多い気がしますが、${}のフォーマットだと高度な操作が可能になります。先ほど作成した変数を呼び出してみます。</p>
+        <pre><code>
+          #確認
+          $ echo $Example 
+          example1
+        </code>
+        </pre>
+        <br>
+
         <h2>Side Note: Special Parameterとは</h2>
         <p>変数っぽい振る舞いをしますが、厳密には変数と分けて開発されたSpecial Parameterというものが存在します。</p>
+        <ul>
+          <li><strong>$?</strong>最後に実行されたコマンドのexit code</li>
+          <li><strong>$0</strong>スクリプト実行時のファイル名</li>
+          <li><strong>$1, $2...</strong>スクリプトへの引数</li>
+          <li><strong>$#</strong>スクリプト実行時の引数の数</li>
+        </ul>
       </article>
     </main>
 
