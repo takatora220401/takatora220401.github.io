@@ -35,7 +35,7 @@
 
         <p>Bashの基本の1つ、変数についてまとめます。</p>
         <br>
-        <h2>Bash変数とその種類</h2>
+        <h2>Bash変数とは</h2>
         <p>筑波大学がBash変数について分かりやすくまとめてくださってますね。</p>
         <p>参考：<a href="https://www.coins.tsukuba.ac.jp/~yas/coins/literacy-2018/2018-06-08/">シェル変数、環境変数、シェル・スクリプト</a></p>
         <br>
@@ -50,7 +50,7 @@
         ・環境変数 - 実行されるプログラム(子プロセス)に引き継がれる
         </blockquote>
 
-        <p>シェル変数と環境変数を並列に捉えるより、シェル変数の中でも子シェルに引き継がれるものを特別に環境変数と呼ぶと考えたほうが実態に近い気がします。そして、シェル関数を環境変数に昇格させる方法の1つがexportコマンドというわけですね。</p>
+        <p>シェル変数と環境変数を並列に捉えるより、シェル変数の中でも子シェルに引き継がれるものを特別に環境変数と呼び、そうでないものをローカル変数と考えたほうが実態に近い気がします。そして、シェル関数を環境変数に昇格させる方法の1つがexportコマンドというわけですね。</p>
         <p>参考：</p>
         <ul>
         <li><a href="https://www.gnu.org/software/bash/manual/html_node/Environment.html?utm_source=chatgpt.com">3.7.4 Environment</a></li>
@@ -58,7 +58,24 @@
         </ul>
         <br>
         
-        <h2></h2>
+        <h2>覚えておきたい変数</h2>
+        <h3>環境変数</h3>
+        <ul>
+          <li><strong>$PATH</strong> - 実行ファイルを探すフォルダのリスト</li>
+          <li><strong>$HOME</strong> - ユーザーのホームディレクトリ</li>
+          <li><strong>$USER</strong> - ログイン中のユーザー</li>
+          <li><strong>$PWD</strong> - ワーキングディレクトリ（ファイルシステム上の現在地）</li>
+        </ul>
+        <br>
+        <h3>ローカル変数</h3>
+        <ul>
+          <li><strong></strong></li>
+        </ul>
+        
+        <h2>変数の新規作成方法</h2>
+        <h2>変数の呼び出し</h2>
+        <h2>Side Note: Special Parameterとは</h2>
+        <p>変数っぽい振る舞いをしますが、厳密には変数と分けて開発されたSpecial Parameterというものが存在します。</p>
       </article>
     </main>
 
