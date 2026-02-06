@@ -105,10 +105,13 @@ blockquote {
   border-left: 6px solid #2563eb;
 }
 /* Article lists */
-.info-card ul {
-  margin-left: 2.2rem;   /* increases indent */
+.info-card ul,
+.info-card ol {
+  margin-left: 2.2rem;
   margin-top: 12px;
   margin-bottom: 16px;
+  padding-left: 0;              /* reset browser default */
+  list-style-position: outside; /* consistent behavior */
 }
 
 .info-card li {

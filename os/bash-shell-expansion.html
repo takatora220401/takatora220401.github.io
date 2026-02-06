@@ -32,9 +32,9 @@
     <!-- Article Content -->
     <main class="content">
       <article class="info-card">
-
         <p>Bashの基本の1つ、シェル展開についてまとめます。</p>
         <br>
+        
         <h2>1. Bashのシェル展開とは</h2>
         <p>placeholderに値を代入する機能です。構文の形式によって代入される値が異なります。例えば、ブレース展開{1..4}には1 2 3 4が代入されます。その他にも次のようなシェル展開があります。</p>
         <ul>
@@ -46,11 +46,13 @@
             <li><strong>グロビング</strong></li>
         </ul>
         <br>
+
         <h2>2. 各展開の動作</h2>
         <h3>~ (tilde)展開</h3>
         <p>~の部分に$HOMEの値をいれます。次の例ではユーザーのホームディレクトリに移動します。</p>
         <pre><code>$ cd ~</code></pre>
         <br>
+
         <h3>パラメータ展開</h3>
         <p>パラメータの位置にその中身をいれます。Bashにおけるパラメータは値を格納する箱のようなものです。実は変数はパラメータの1つです。パラメータにはその他にも、<code>位置パラメータ</code>や<code>特殊パラメータ</code>、配列の要素などがあります。</p>
         <pre><code>#変数の場合
@@ -80,24 +82,28 @@ arg1 arg2 arg3
 element1: arg1 arg2
 element2: arg3</code></pre>
         <br>
+
         <h3>算術式展開</h3>
         <p>計算の値をいれます。</p>
         <pre><code>
 $ echo $((2026%5))
 1</code></pre>
         <br>
+
         <h3>プロセス置換</h3>
         <p>コマンド置換とかなり似てますが、プロセス置換はコマンドの実行結果をファイルとして渡します。</p>
         <pre><code>$ echo <(ls)
 /dev/fd/63</code></pre>
         <br>
+
         <h3>コマンド置換</h3>
         <p>プロセス置換がファイルとして実行結果を渡すのに対して、コマンド置換ではそのまま結果を渡します。</p>
         <pre><code>$ echo $(ls)
 BashCourse DjangoProject Github_Actions Go_basics NodejsCourse pythonForHacker</code></pre>
         <br>
+
         <h3>グロビング</h3>
-        <p>コマンドの対象となるファイルを楽に書くためのショートカットを提供するものって感じです。</p>
+        <p>コマンドの対象となるファイルを楽に書くためのショートカットを提供するものです。</p>
         <pre><code>$ # ファイル一覧
 ls
 01.txt  03.txt  05.txt  07.txt  09.txt  11.txt  13.txt  15.txt  17.txt  19.txt
@@ -119,6 +125,15 @@ $ ls *.txt
         <h2>3. 展開時の単語分割(Word Splitting)</h2>
         <p></p>
         <br>
+
+        Word splitting is a process that shell performs to split the result of some unquoted expansion into separate words. 
+Only performed on the result of unquoted
+parameter expansion
+command substitution
+arithmetic expansion
+Character used to recognize the separation points are defined in IFS variable
+Internal Field Separator
+
         <h2>4. 展開の順番</h2>
         <p>こんな順番で処理が行われてるみたいです。</p>
         <ol>
