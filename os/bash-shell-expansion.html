@@ -97,18 +97,39 @@ $ echo $((2026%5))
 BashCourse DjangoProject Github_Actions Go_basics NodejsCourse pythonForHacker</code></pre>
         <br>
         <h3>グロビング</h3>
-        <p></p>
-        <pre><code></code></pre>
+        <p>コマンドの対象となるファイルを楽に書くためのショートカットを提供するものって感じです。</p>
+        <pre><code>$ # ファイル一覧
+ls
+01.txt  03.txt  05.txt  07.txt  09.txt  11.txt  13.txt  15.txt  17.txt  19.txt
+02.txt  04.txt  06.txt  08.txt  10.txt  12.txt  14.txt  16.txt  18.txt  20.txt 
+
+# []は中でフィルターを指定
+$ ls [0-1][7-9].txt
+07.txt  08.txt  09.txt  17.txt  18.txt  19.txt
+
+# ?は任意の文字1つに合致
+$ ls 0?.txt
+01.txt  02.txt  03.txt  04.txt  05.txt  06.txt  07.txt  08.txt  09.txt
+
+# *は任意の長さの任意の文字に合致
+$ ls *.txt
+01.txt  03.txt  05.txt  07.txt  09.txt  11.txt  13.txt  15.txt  17.txt  19.txt
+02.txt  04.txt  06.txt  08.txt  10.txt  12.txt  14.txt  16.txt  18.txt  20.txt</code></pre>
         <br>
         <h2>3. 展開時の単語分割(Word Splitting)</h2>
         <p></p>
         <br>
-        <h2>4. </h2>
-        <p></p>
+        <h2>4. 展開の順番</h2>
+        <p>こんな順番で処理が行われてるみたいです。</p>
+        <ol>
+            <li>ブレース展開</li>
+            <li>パラメータ、算術、コマンド、プロセス、チルダ</li>
+            <li>単語分割</li>
+            <li>グロビング</li>
+        </ol>
         <br>
       </article>
     </main>
-
     <footer class="site-footer">
       <p>© 2026 takatora</p>
     </footer>
