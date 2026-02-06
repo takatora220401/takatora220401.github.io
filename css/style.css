@@ -74,7 +74,7 @@ blockquote {
   padding: 8px 18px;
   margin: 8px 0;
   color: #555;
-  white-space: pre-wrap;
+  white-space: normal;
 }
 /* for list indentation */ 
 .list-toc {
