@@ -52,14 +52,41 @@
         <pre><code>$ cd ~</code></pre>
         <br>
         <h3>パラメータ展開</h3>
-        <p>パラメータの位置にその中身をいれます。Bashにおけるパラメータは値を格納する箱のようなものです。実は変数はパラメータの1つなのです。パラメータにはその他にも、<code>位置パラメータ</code>や<code>特殊パラメータ</code>、配列の要素などがあります。</p>
-        <pre><code>#変数
+        <p>パラメータの位置にその中身をいれます。Bashにおけるパラメータは値を格納する箱のようなものです。実は変数はパラメータの1つです。パラメータにはその他にも、<code>位置パラメータ</code>や<code>特殊パラメータ</code>、配列の要素などがあります。</p>
+        <pre><code>#変数の場合
+$ echo $PWD
+/home/thxxxxxo
 
+#位置パラメータの場合
+$ cat positional-parameter-test.sh 
+#!/bin/bash
+echo script name: $0 
+echo 1st argument:$1
+$ ./positional-parameter-test.sh arg1
+script name: ./positional-parameter-test.sh
+1st argument:arg1
+
+#特殊パラメータの場合
+$ cat special-parameter-test.sh
+#!/bin/bash
+echo "$@"
+counter=1
+for e in "$@"; do
+  echo  element$counter: $e
+  ((counter+=1))
+done
+$ ./special-parameter-test.sh "arg1 arg2" arg3
+arg1 arg2 arg3
+element1: arg1 arg2
+element2: arg3
         </code></pre>
         <br>
         <h3>算術式展開</h3>
-        <p></p>
-        <pre><code></code></pre>
+        <p>計算の値をいれます。</p>
+        <pre><code>
+$ echo $((2026%5))
+1
+        </code></pre>
         <br>
         <h3>プロセス置換</h3>
         <p></p>
