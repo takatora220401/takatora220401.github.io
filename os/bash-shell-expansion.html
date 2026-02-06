@@ -78,23 +78,23 @@ done
 $ ./special-parameter-test.sh "arg1 arg2" arg3
 arg1 arg2 arg3
 element1: arg1 arg2
-element2: arg3
-        </code></pre>
+element2: arg3</code></pre>
         <br>
         <h3>算術式展開</h3>
         <p>計算の値をいれます。</p>
         <pre><code>
 $ echo $((2026%5))
-1
-        </code></pre>
+1</code></pre>
         <br>
         <h3>プロセス置換</h3>
-        <p></p>
-        <pre><code></code></pre>
+        <p>コマンド置換とかなり似てますが、プロセス置換はコマンドの実行結果をファイルとして渡します。</p>
+        <pre><code>$ echo <(ls)
+/dev/fd/63</code></pre>
         <br>
         <h3>コマンド置換</h3>
-        <p></p>
-        <pre><code></code></pre>
+        <p>プロセス置換がファイルとして実行結果を渡すのに対して、コマンド置換ではそのまま結果を渡します。</p>
+        <pre><code>$ echo $(ls)
+BashCourse DjangoProject Github_Actions Go_basics NodejsCourse pythonForHacker</code></pre>
         <br>
         <h3>グロビング</h3>
         <p></p>
