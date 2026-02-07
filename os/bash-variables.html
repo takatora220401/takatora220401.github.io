@@ -80,13 +80,16 @@ $ Example=example1</code></pre>
         <br>
 
         <h2>4. 変数の呼び出し</h2>
-        <p><code>$変数名</code>または<code>${変数名}</code>で呼び出します。$だけで使うことが多い気がしますが、${}のフォーマットだと高度な操作が可能になります。先ほど作成した変数を呼び出してみます。</p>
-        <pre><code>$ echo $Example
-example1</code></pre>
+        <p><code>$変数名</code>または<code>${変数名}</code>で呼び出します。$だけで使うことが多い気がしますが、変数の直後に文字を続けたい場合やBashの機能を使いたい場合に${}を使います。</p>
+        <pre><code>$ echo ${#Example} 
+8
+$ concat=${Example}_var
+$ echo $concat 
+example1_var</code></pre>
         <br>
 
         <h2>おまけ: Special Parameter</h2>
-        <p>Bashにおけるパラメータには、変数の他にもSpecial Parametergit pullなどが存在します。</p>
+        <p>Bashにおけるパラメータには、変数の他にもSpecial Parameterなどが存在します。</p>
         <ul>
           <li><strong>$?</strong> - 最後に実行されたコマンドのexit code</li>
           <li><strong>$0</strong> - スクリプト実行時のファイル名</li>
