@@ -93,6 +93,8 @@ example1</code></pre>
           <li><strong>$1, $2...</strong> - スクリプトへの引数</li>
           <li><strong>$#</strong> - スクリプト実行時の引数の数</li>
         </ul>
+        <p>そして、Bashが認識するエスケープシーケンスは\nだけなのかもしれません。というのも、<a href="https://www.gnu.org/software/bash/manual/html_node/Escape-Character.html">3.1.2.1 Escape Character</a>には\nの記載しかありません。たしかに、正規表現を除くと\wや\u, \hはPS1の文脈で聞くことが多い気がしますね。</p>
+        <blockquote>A non-quoted backslash ‘\’ is the Bash escape character. It preserves the literal value of the next character that follows, removing any special meaning it has, with the exception of newline. If a \newline pair appears, and the backslash itself is not quoted, the \newline is treated as a line continuation (that is, it is removed from the input stream and effectively ignored).</blockquote>
       </article>
     </main>
 
