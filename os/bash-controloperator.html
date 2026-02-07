@@ -51,18 +51,18 @@
         <h2>3. Meta character</h2>
         <p>次の文字もBashにおいて、ロジックの流れを制御します。(詳しい理由は分かりませんが、ドキュメント上Control Operatorとは区別されているようでした。)</p>
         <ul>
-            <li><strong>>, >></strong> - どちらもデータストリームをリダイレクトします。>は上書き、 >>は追記です。</li>
-            <li><strong>2>,&></strong> - 2>はstderrをリダイレクトします。&>はstdoutとstferrのどちらもリダイレクトします。エラーを破棄したい場合は2> /dev/nullとします。</li>
+            <li><strong>>, >></strong> - リダイレクト。>は上書き、 >>は追記です。</li>
+            <li><strong>2>,&></strong> - 2>はstderrを、&>はstdoutとstferrをリダイレクトします。</li>
             <li><strong>whitespace( )</strong> - Bashが単語の区切りを探す際に目印とします。</li>
         </ul>
         <h2>4. 補足</h2>
         <ul>
             <li>Bashにおけるexit code: 0 - 成功、1~255 - 失敗</li>
-            <li>/dev/nullはbit bucketと呼ばれ、データを意図的に破棄するために使われます</li>
-            <li>| (パイプ)を点はsubshellを使うために変数を更新できません。そのため、プロセス置換が使われます。
+            <li>エラーを破棄したい場合は2> /dev/null(bit bucket)とします。</li>
+            <li>| (パイプ)はsubshellを使うために変数を更新できません。そのため、プロセス置換が使われます。
         </ul>
         <br>
-        
+
         <p>参考：</p>
         <ul>
           <li><a href="/os/bash-pipeproblem.html">pipeの注意点</a></li>
