@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <header class="site-header">
-      <h1>Bash - Control Operator</h1>
+      <h1>Bash - Pipe Issue</h1>
       <p class="tagline">
         Last Updated: 2026-02-07
       </p>
@@ -33,42 +33,65 @@
     <main class="content">
       <article class="info-card">
 
-        <p>BashのControl Operatorについて</p>
+        <p>BashのPipe(|)で置きがちな問題とその解決策について</p>
         <br>
-        <h2>1. Control Operatorの用途</h2>
-        <p>複数のコマンドをどのように実行するのかを制御します。例えば、cmdA <code>&&</code> cmdBとした場合、cmdAが正常終了した場合のみcmdBが実行されます。</p>
+        <h2>1. 問題</h2>
+        <p>まずは実際の動作をお見せ致します。</p>
+        <pre><code>#サンプルテキストファイルに対して、Whileループを回します。
+$ cat test.sh 
+#!/bin/bash
+count=1
+cat sample.txt |while read line;do
+	echo $count $line
+	((count++))
+done
+echo this is the final count: $count </code></pre>
+        <p>こちらがループ対象のテキストファイル</p>
+        <code><pre>#サンプルテキストファイル
+$ cat sample.txt 
+line1
+line2
+line3
+        </code></pre>
+        <p>実行するとどうなるでしょうか？</p>
+        <pre><code>$ ./test.sh
+1 line1
+2 line2
+3 line3
+this is the final count: 1
+        </code></pre>
+        <p>Whileループを回している間はよさそうですね!!・・・ただし、最後<code>this is the final count: 1</code>countが1に戻っています。これがpipeの問題です。whileがsubshellで実行されているため、変数の更新が全て消えてしまいます。</p>
         <br>
 
-        <h2>2. Control Operatorの種類</h2>
-        <ul>
-            <li><strong>A;B</strong> - Aのexit codeに関わらず、Aの次にBが実行されます。<li>
-            <li><strong>A&&B</strong> - AND。Aが成功した場合のみ、Bが実行されます。</li>
-            <li><strong>A||B</strong> - OR。Aが失敗した場合のみ、Bが実行されます。</li>
-            <li><strong>A|B</strong> - AのstdoutをBのstdinにリダイレクトします。パイプが使われるとどちらもsubshellで実行されます。</li>
-            <li><strong>(A)</strong> - subshellで実行します。コマンド置換はサブシェルでの実行結果を得たい時に使います。</li>
-        </ul>
-        
-        <h2>3. Meta character</h2>
-        <p>次の文字もBashにおいて、ロジックの流れを制御します。(詳しい理由は分かりませんが、ドキュメント上Control Operatorとは区別されているようでした。)</p>
-        <ul>
-            <li><strong>>, >></strong> - リダイレクト。>は上書き、 >>は追記です。</li>
-            <li><strong>2>,&></strong> - 2>はstderrを、&>はstdoutとstferrをリダイレクトします。</li>
-            <li><strong>whitespace( )</strong> - Bashが単語の区切りを探す際に目印とします。</li>
-        </ul>
-        <h2>4. 補足</h2>
-        <ul>
-            <li>Bashにおけるexit code: 0 - 成功、1~255 - 失敗</li>
-            <li>エラーを破棄したい場合は2> /dev/null(bit bucket)とします。</li>
-            <li>| (パイプ)はsubshellを使うために変数を更新できません。そのため、プロセス置換が使われます。
-        </ul>
-        <br>
-
-        <p>参考：</p>
-        <ul>
-          <li><a href="/os/bash-pipeproblem.html">pipeの注意点</a></li>
-          <li><a href="https://www.gnu.org/software/bash/manual/html_node/Definitions.html">2 Definitions</a></li>
-        </ul>
-        <br>
+        <h2>2. 対応策</h2>
+        <h3>2-1. その1</h3>
+        <p>問題はWhileループがsubshellで実行されていることですので、whileをcurrent shellで実行してやれば問題解決ということになります。そのために、<code>プロセス置換</code>が使われます</p>
+        <pre><code>$ cat test.sh 
+#!/bin/bash
+count=1
+while read line;do
+	echo $count $line
+	((count++))
+done < <(cat sample.txt)
+echo this is the final count: $count</code></pre>
+        <h3>2-2. その2</h3>
+        <p>プロセス置換を記録として残したくて、その1を書きましたが、正直テキストファイルをインプットとして与えるだけであればこちらのほうがきれいですね。</p>
+        <pre><code>$ cat test.sh 
+#!/bin/bash
+count=1
+while read line;do
+	echo $count $line
+	((count++))
+done < sample.txt
+echo this is the final count: $count
+        </code></pre>
+        <p>どちらも実行すると以下のようになります。変数がちゃんと更新されてますね。</p>
+        <pre><code>$ ./test.sh
+1 line1
+2 line2
+3 line3
+this is the final count: 4
+        </code></pre>
       </article>
     </main>
 
