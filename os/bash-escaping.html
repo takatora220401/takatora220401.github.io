@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <header class="site-header">
-      <h1>Bash - Escaping</h1>
+      <h1>Bash - Escape</h1>
       <p class="tagline">
         Last Updated: 2026-02-07
       </p>
@@ -35,13 +35,36 @@
 
         <p>Bashのエスケープについてまとめる。</p>
         <br>
-        <h2>1. エスケープとは</h2>
+        <h2>1. Escapeとは</h2>
+        <p>特別に扱われる文字(例えば、$や?)から特別な意味を消すことですね。</p>
         <br>
+
         <h2>2. エスケープ方法</h2>
+        <ul>
+          <li><strong>\ (backslash)</strong> - 次に続く一文字を文字通りとします。</li>
+          <li><strong>'' (single quotation)</strong> - すべての文字を文字通りの意味にします。''の中に'が入らないように注意が必要です。</li>
+          <li><strong>"" (double quotation)</strong> - <code>$</code>, <code>`</code>,<code>\</code>を除くすべての文字を文字通りの意味にします。 </li>
+        </ul>
+        <p>参考：</p>
+        <ul>
+          <li><a href="https://www.gnu.org/software/bash/manual/html_node/Escape-Character.html">3.1.2.1 Escape Character</a> </li>
+          <li><a href="https://www.gnu.org/software/bash/manual/html_node/Single-Quotes.html">3.1.2.2 Single Quotes</a> </li>
+          <li><a href="https://www.gnu.org/software/bash/manual/html_node/Double-Quotes.html">3.1.2.3 Double Quotes</a> </li>
+        </ul>
         <br>
-        <h2>3. エスケープとは</h2>
-        <br>
-        <h2>おまけ：</h2>
+
+        <h2>おまけ：変数の中の特殊文字</h2>
+        <p>次のコードを見てください。</p>
+        <pre><code>$ test1="\$PWD"
+$ echo $test1
+$PWD
+$ test2=$test1
+$ echo $test2
+$PWD
+test2=$PWD
+$ echo $test2
+/home/txxxxxxo</code></pre>
+        <p>変数testの中身は、""</p>
         <br>
         
       </article>
