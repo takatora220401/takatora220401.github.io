@@ -35,7 +35,7 @@
 
         <p>BashのPipe(|)で置きがちな問題とその解決策について</p>
         <br>
-        <h2>1. 問題</h2>
+        <h2>1. | を使うとぶつかりうる問題</h2>
         <p>まずは実際の動作をお見せ致します。</p>
         <pre><code>#サンプルテキストファイルに対して、Whileループを回します。
 $ cat test.sh 
@@ -82,7 +82,7 @@ while read line;do
 	((count++))
 done < sample.txt
 echo this is the final count: $count</code></pre>
-        <p>どちらも実行すると以下のようになります。変数がちゃんと更新されてますね。</p>
+        <p>どちらも実行すると以下のようになります。最終的な値が行数と一致してない気持ち悪さは置いといて変数がちゃんと更新されてますね。</p>
         <pre><code>$ ./test.sh
 1 line1
 2 line2
