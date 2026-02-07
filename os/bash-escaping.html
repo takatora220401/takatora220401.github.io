@@ -53,13 +53,17 @@
         </ul>
         <br>
 
-        <h2>おまけ：変数の中の特殊文字</h2>
+        <h2>3. 変数の中の特殊文字</h2>
         <p>次のコードを見てください。</p>
         <pre><code>$ test1="\$PWD"
 $ echo $test1
 $PWD</code></pre>
         <p>変数testの中身($PWD)をechoした時、$PWDは展開されないですよね。つまり、変数の中身はエスケープされていなくても展開されないみたいですね。<a hrerf="https://unix.stackexchange.com/questions/640075/bash-script-wont-interpret-variable-within-a-variable">Bash script won't interpret variable within a variable</a>でも同じことが議論されてます。</p>
         <br>
+        
+        <h2>おまけ</h2>
+        <p>少し脱線しますが、Bashが認識するEscape Sequenceには\nや\wがありますが、\n以外は登場シーンがPS1の定義に限定されると考えてもいいともいます。<a href="https://www.gnu.org/software/bash/manual/html_node/Escape-Character.html">3.1.2.1 Escape Character</a>にも\nの記載しかありませんしね。</p>
+        <blockquote>A non-quoted backslash ‘\’ is the Bash escape character. It preserves the literal value of the next character that follows, removing any special meaning it has, with the exception of newline. If a \newline pair appears, and the backslash itself is not quoted, the \newline is treated as a line continuation (that is, it is removed from the input stream and effectively ignored).</blockquote>
       </article>
     </main>
 
