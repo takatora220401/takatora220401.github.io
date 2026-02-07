@@ -57,16 +57,9 @@
         <p>次のコードを見てください。</p>
         <pre><code>$ test1="\$PWD"
 $ echo $test1
-$PWD
-$ test2=$test1
-$ echo $test2
-$PWD
-test2=$PWD
-$ echo $test2
-/home/txxxxxxo</code></pre>
-        <p>変数testの中身は、""</p>
+$PWD</code></pre>
+        <p>変数testの中身($PWD)をechoした時、$PWDは展開されないですよね。つまり、変数の中身はエスケープされていなくても展開されないみたいですね。<a hrerf="https://unix.stackexchange.com/questions/640075/bash-script-wont-interpret-variable-within-a-variable">Bash script won't interpret variable within a variable</a>でも同じことが議論されてます。</p>
         <br>
-        
       </article>
     </main>
 
