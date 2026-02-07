@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>OS | DevOpsエンジニアの備忘録</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="site-container">
+
+    <!-- Header -->
+    <header class="site-header">
+      <h1>Bash - Control Operator</h1>
+      <p class="tagline">
+        Last Updated: 2026-02-07
+      </p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <a href="/index.html">HOME</a>
+      <a href="/cloud/cloud-index.html">Cloud</a>
+      <a href="/k8s/k8s-index.html" >Kubernetes</a>
+      <a href="/auto/auto-index.html">Automation</a>
+      <a href="/os/os-index.html" class="active">OS(Linux/Windows etc.)</a>
+      <a href="/db/db-index.html">DB</a>
+      <a href="/network/network-index.html">Networking</a>
+      <a href="/misc/misc-index.html">Misc</a>
+      <a href="/about.html">About Me</a>
+    </nav>
+    <!-- Article Content -->
+    <main class="content">
+      <article class="info-card">
+
+        <p>BashのControl Operatorについて</p>
+        <br>
+        <h2>1. Control Operatorの用途</h2>
+        <p>複数のコマンドをどのように実行するのかを制御します。例えば、cmdA <code>&&</code> cmdBとした場合、cmdAが正常終了した場合のみcmdBが実行されます。</p>
+        <br>
+
+        <h2>2. Control Operatorの種類</h2>
+        <ul>
+            <li><strong>A;B</strong> - Aのexit codeに関わらず、Aの次にBが実行されます。<li>
+            <li><strong>A&&B</strong> - AND。Aが成功した場合のみ、Bが実行されます。</li>
+            <li><strong>A||B</strong> - OR。Aが失敗した場合のみ、Bが実行されます。</li>
+            <li><strong>A|B</strong> - AのstdoutをBのstdinにリダイレクトします。パイプが使われるとどちらもsubshellで実行されます。</li>
+            <li><strong>>, >></strong> - どちらもデータストリームをリダイレクトします。>は上書き、 >>は追記です。</li>
+            <li><strong>2>,&></strong> - 2>はstderrをリダイレクトします。&>はstdoutとstferrのどちらもリダイレクトします。エラーを破棄したい場合は2> /dev/nullとします。</li>
+            <li><strong>()</strong> - subshellで実行します。コマンド置換はサブシェルでの実行結果を得たい時に使います。</li>
+        </ul>
+        <p>補足：</p>
+        <ul>
+            <li>Bashにおけるexit code: 0 - 成功、1~255 - 失敗</li>
+            <li>/dev/nullはbit bucketと呼ばれ、データを意図的に破棄するために使われます</li>
+            <li>| (パイプ)を点はsubshellを使うために変数を更新できません。そのため、プロセス置換が使われます。
+            <li>newlineもcontrol operatorに含まれます。</li>
+            <li>whitespaceはcontrol operatorに含まれないようです。</li>
+        </ul>
+        <p>参考：</p>
+        <ul>
+          <li><a href="/os/bash-pipeproblem.html">pipeの注意点</a></li>
+          <li><a href="https://www.gnu.org/software/bash/manual/html_node/Definitions.html">2 Definitions</a></li>
+        </ul>
+        <br>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 takatora</p>
+    </footer>
+  </div>
+</body>
+</html>
