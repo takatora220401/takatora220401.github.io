@@ -81,6 +81,7 @@ URL2: https://wiki.archlinux.org/title/Bash
 URL3: https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
         
         <p>各行の間に1行追加されました。readarrayは\nごと取り込んでしまいますので、多くの場合では<code>-t</code>オプションにて\nの除去が必要になります。</p>
+        <br>
         <h3>3-2. readコマンドで作成した変数""なしで呼びます。</h3>
         <pre><code>$ cat test2.sh 
 #!/bin/bash
@@ -97,6 +98,7 @@ https://wiki.archlinux.org/title/Bash
 URL3:
 https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
         <p>sample.txt内のnewlineだけでなく、スペースがArray要素の区切りとなってしまいました(単語分割)。</p>
+        <br>
         <h3>3-3. readコマンドの-rオプション</h3>
         <p>例のためにサンプルテキストファイルを変更します。</p>
         <pre><code>$ cat sample2.txt 
@@ -134,12 +136,7 @@ D:DataProjectsTest</code></pre>
         <pre><code>while IFS="" read line nointenstion ;do
   echo $line
 done < sample2.txt</code></pre>
-
-$ ./test2.sh 
-C:UsersNameDocuments
-C:UsersNameDesktop
-C:Program FilesApp
-D:DataProjectsTest
+        <br>
         <h3>3-5. テキストファイルの代入位置</h3>
         <p>whileループに対してテキストファイルを代入します。readに対してインプットしてしまうと次のようになります。</p>
         <pre><code>#編集後
