@@ -80,7 +80,7 @@ URL2: https://wiki.archlinux.org/title/Bash
 
 URL3: https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
         
-        <p>各行の間に1行追加されました。readarrayは\nごと取り込んでしまいますので、多くの場合では<code>-t</code>オプションにて\nの除去が必要になります。</p>
+        <p>各行の間に1行追加されました。readarrayはnewlineごと取り込んでしまいますので、多くの場合では<code>-t</code>オプションにてnewlineの除去が必要になります。</p>
         <br>
         <h3>3-2. readコマンドで作成した変数を""なしで呼びます。</h3>
         <pre><code>$ cat test2.sh 
@@ -133,7 +133,7 @@ C:UsersNameDocuments
 C:UsersNameDesktop
 C:Program
 D:DataProjectsTest</code></pre>
-        <p>すると、3つ目のパスが分割されてしまっています(分割された2つ目はechoしていないので見えませんが)。このようにreadの受け皿となる変数が2つ以上になる時は単語分割に注意が必要です。意図しない動作を予防するためにreadコマンドに対してIFSを宣言します。</p>
+        <p>すると、3つ目のパスが分割されてしまっています(分割された2つ目はechoしていないので見えませんが)。このように<code>readの受け皿となる変数が2つ以上になる時</code>は単語分割に注意が必要です。意図しない動作を予防するために<code>readコマンドに対してIFSを宣言</code>します。</p>
         <pre><code>while IFS="" read line nointention ;do
   echo $line
 done < sample2.txt</code></pre>
