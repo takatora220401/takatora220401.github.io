@@ -119,12 +119,12 @@ C:Program FilesApp
 D:DataProjectsTest</code></pre>
         <p>-rなしでは\がエスケープだと認識されてしまうんですね。</p>
         <br>
-        <p>ちなみに、readコマンドの-tオプションはユーザーインプットを受け付ける際のタイムアウト値です。また、readコマンドにおける\nの扱いですが、最初から除去されてから変数に取り込まれます。</p>
+        <p>ちなみに、readコマンドの-tオプションはユーザーインプットを受け付ける際のタイムアウト値です。また、readコマンドでは\nは変数に取り込まれません。</p>
         <br>
         <h3>3-4. readコマンドとIFS変数</h3>
         <p>先程のファイルパスを含むテキストファイルを読み込む際に変数(受け皿)を1つ追加してみます。</p>
         <pre><code>#!/bin/bash
-while read line nointenstion ;do
+while read line nointention ;do
   echo $line
 done < sample2.txt
             
@@ -133,15 +133,15 @@ C:UsersNameDocuments
 C:UsersNameDesktop
 C:Program
 D:DataProjectsTest</code></pre>
-        <p>すると、3つ目のパスが分割されてしまっています。このようにreadの受け皿となる変数が2つ以上になる時は単語分割に注意が必要です。意図しない動作を予防するためにreadコマンドに対してIFSを宣言します。</p>
-        <pre><code>while IFS="" read line nointenstion ;do
+        <p>すると、3つ目のパスが分割されてしまっています(分割された2つ目はechoしていないので見えませんが)。このようにreadの受け皿となる変数が2つ以上になる時は単語分割に注意が必要です。意図しない動作を予防するためにreadコマンドに対してIFSを宣言します。</p>
+        <pre><code>while IFS="" read line nointention ;do
   echo $line
 done < sample2.txt</code></pre>
         <br>
         <h3>3-5. テキストファイルの代入位置</h3>
-        <p>whileループに対してテキストファイルを代入します。readに対してインプットしてしまうと次のようになります。</p>
+        <p>readに対してインプットしてしまうと次のようになります。</p>
         <pre><code>#編集後
-while IFS="" read line nointenstion < sample2.txt ;do
+while IFS="" read line nointention < sample2.txt ;do
   echo $line
 done 
 
@@ -152,7 +152,7 @@ C:UsersNameDocuments
 C:UsersNameDocuments
 C:UsersNameDocuments
 C:UsersNameDocuments(永遠に続く)</code></pre>
-        <p>whileに対して1行ずつインプットするのではなく、readに対して1行目を入れる動作をwhileで永遠に回してしまうんですね、、</p>
+        <p>whileに対して1行ずつインプットするのではなく、readに対して1行目を入れる動作をwhileで永遠に回してしまうんですね、、必ずwhileループに対してテキストファイルを代入するようにしましょう。</p>
       </article>
     </main>
 
