@@ -82,7 +82,7 @@ URL3: https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
         
         <p>各行の間に1行追加されました。readarrayは\nごと取り込んでしまいますので、多くの場合では<code>-t</code>オプションにて\nの除去が必要になります。</p>
         <br>
-        <h3>3-2. readコマンドで作成した変数""なしで呼びます。</h3>
+        <h3>3-2. readコマンドで作成した変数を""なしで呼びます。</h3>
         <pre><code>$ cat test2.sh 
 #!/bin/bash
 readarray -t linevar < sample.txt
@@ -97,7 +97,7 @@ URL2:
 https://wiki.archlinux.org/title/Bash
 URL3:
 https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
-        <p>sample.txt内のnewlineだけでなく、スペースがArray要素の区切りとなってしまいました(単語分割)。</p>
+        <p>sample.txt内のnewlineだけでなく、各Array要素がスペースで分割されてしまいました。</p>
         <br>
         <h3>3-3. readコマンドの-rオプション</h3>
         <p>例のためにサンプルテキストファイルを変更します。</p>
@@ -118,6 +118,7 @@ C:UsersNameDesktop
 C:Program FilesApp
 D:DataProjectsTest</code></pre>
         <p>-rなしでは\がエスケープだと認識されてしまうんですね。</p>
+        <br>
         <p>ちなみに、readコマンドの-tオプションはユーザーインプットを受け付ける際のタイムアウト値です。\nの扱いですが、最初から除去されてから変数に取り込まれます。</p>
         <br>
         <h3>3-4. readコマンドとIFS変数</h3>
