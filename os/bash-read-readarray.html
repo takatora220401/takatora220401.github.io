@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>OS | DevOpsエンジニアの備忘録</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="site-container">
+
+    <!-- Header -->
+    <header class="site-header">
+      <h1>Bash - read/readarray</h1>
+      <p class="tagline">
+        Last Updated: 2026-02-08
+      </p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <a href="/index.html">HOME</a>
+      <a href="/cloud/cloud-index.html">Cloud</a>
+      <a href="/k8s/k8s-index.html" >Kubernetes</a>
+      <a href="/auto/auto-index.html">Automation</a>
+      <a href="/os/os-index.html" class="active">OS(Linux/Windows etc.)</a>
+      <a href="/db/db-index.html">DB</a>
+      <a href="/network/network-index.html">Networking</a>
+      <a href="/misc/misc-index.html">Misc</a>
+      <a href="/about.html">About Me</a>
+    </nav>
+    <!-- Article Content -->
+    <main class="content">
+      <article class="info-card">
+
+        <p>Bashのread/readarrayコマンドについて</p>
+        <br>
+        <h2>1. read/readarrayコマンドとは</h2>
+        <p>stdinを変数に取り込むために使用されるコマンドですね。主にテキストファイルを操作する時に用いられます。readはwhileループと一緒に使用されループの度に1行ずつ読み込みます。readarrayの方はファイル内のすべてをArrayに取り込みますのでForループとの相性がいいです。</p>
+        <br>
+        <h2>2. 使用例</h2>
+        <pre><code>$ cat sample.txt 
+URL1: https://www.google.com
+URL2: https://wiki.archlinux.org/title/Bash
+URL3: https://man7.org/linux/man-pages/man1/read.1.html
+
+$ cat test2.sh 
+#!/bin/bash
+readarray -t linevar < sample.txt
+for line in "${linevar[@]}";do
+  echo "${line}" 
+done
+
+while read -r line ;do
+  echo "$line"
+done < sample.txt
+
+$ ./test2.sh 
+URL1: https://www.google.com
+URL2: https://wiki.archlinux.org/title/Bash
+URL3: https://man7.org/linux/man-pages/man1/read.1.html
+URL1: https://www.google.com
+URL2: https://wiki.archlinux.org/title/Bash
+URL3: https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
+        <br>
+        <h2>3. 注意点</h2>
+        <h3>3-1. readコマンドの-tオプション</h3>
+        <p>readコマンドから-tを抜いてみます。</p>
+        <pre><code> $ cat test2.sh 
+#!/bin/bash
+readarray linevar < sample.txt
+for line in "${linevar[@]}";do
+  echo "${line}" 
+done
+
+$ ./test2.sh 
+URL1: https://www.google.com
+
+URL2: https://wiki.archlinux.org/title/Bash
+
+URL3: https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
+        
+        <p>各行の間に1行追加されました。readarrayは\nごと取り込んでしまいますので、多くの場合では<code>-t</code>オプションにて\nの除去が必要になります。</p>
+        <h3>3-2. readコマンドで作成した変数""なしで呼びます。</h3>
+        <pre><code>$ cat test2.sh 
+#!/bin/bash
+readarray -t linevar < sample.txt
+for line in ${linevar[@]};do
+  echo "${line}" 
+done
+
+$ ./test2.sh 
+URL1:
+https://www.google.com
+URL2:
+https://wiki.archlinux.org/title/Bash
+URL3:
+https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
+        <p>sample.txt内のnewlineだけでなく、スペースがArray要素の区切りとなってしまいました(単語分割)。</p>
+        <h3>3-3. readコマンドの-rオプション</h3>
+        <p>例のためにサンプルテキストファイルを変更します。</p>
+        <pre><code>$ cat sample2.txt 
+C:\Users\Name\Documents
+C:\Users\Name\Desktop
+C:\Program Files\App
+D:\Data\Projects\Test</code></pre>
+        <p>このときreadコマンドを-rなしで実行すると次のような結果となります。</p>
+        <pre><code>#!/bin/bash
+while read line ;do
+  echo $line
+done < sample2.txt
+            
+$ ./test2.sh 
+C:UsersNameDocuments
+C:UsersNameDesktop
+C:Program FilesApp
+D:DataProjectsTest</code></pre>
+        <p>-rなしでは\がエスケープだと認識されてしまうんですね。</p>
+        <p>ちなみに、readコマンドの-tオプションはユーザーインプットを受け付ける際のタイムアウト値です。\nの扱いですが、最初から除去されてから変数に取り込まれます。</p>
+        <br>
+        <h3>3-4. readコマンドとIFS変数</h3>
+        <p>先程のファイルパスを含むテキストファイルを読み込む際に変数(受け皿)を1つ追加してみます。</p>
+        <pre><code>#!/bin/bash
+while read line nointenstion ;do
+  echo $line
+done < sample2.txt
+            
+$ ./test2.sh 
+C:UsersNameDocuments
+C:UsersNameDesktop
+C:Program
+D:DataProjectsTest</code></pre>
+        <p>すると、3つ目のパスが分割されてしまっています。このようにreadの受け皿となる変数が2つ以上になる時は単語分割に注意が必要です。意図しない動作を予防するためにreadコマンドに対してIFSを宣言します。</p>
+        <pre><code>while IFS="" read line nointenstion ;do
+  echo $line
+done < sample2.txt</code></pre>
+
+$ ./test2.sh 
+C:UsersNameDocuments
+C:UsersNameDesktop
+C:Program FilesApp
+D:DataProjectsTest
+        <h3>3-5. テキストファイルの代入位置</h3>
+        <p>whileループに対してテキストファイルを代入します。readに対してインプットしてしまうと次のようになります。</p>
+        <pre><code>#編集後
+while IFS="" read line nointenstion < sample2.txt ;do
+  echo $line
+done 
+
+#実行結果
+C:UsersNameDocuments
+C:UsersNameDocuments
+C:UsersNameDocuments
+C:UsersNameDocuments
+C:UsersNameDocuments
+C:UsersNameDocuments(永遠に続く)</code></pre>
+        <p>whileに対して1行ずつインプットするのではなく、readに対して1行目を入れる動作をwhileで永遠に回してしまうんですね、、</p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 takatora</p>
+    </footer>
+  </div>
+</body>
+</html>
