@@ -35,16 +35,19 @@
 
         <p>Bashのread/readarrayコマンドについて</p>
         <br>
+
         <h2>1. read/readarrayコマンドとは</h2>
         <p>主にテキストファイルを操作する時に用いられます。readはwhileループと一緒に使用されループの度に1行ずつ読み込みます。readarrayの方はファイル内のすべてをArrayに取り込みますのでForループとの相性がいいです。</p>
         <br>
+
         <h2>2. 使用例</h2>
+        <p>使用するテキストファイルはこちら。</p>
         <pre><code>$ cat sample.txt 
 URL1: https://www.google.com
 URL2: https://wiki.archlinux.org/title/Bash
-URL3: https://man7.org/linux/man-pages/man1/read.1.html
-
-$ cat test2.sh 
+URL3: https://man7.org/linux/man-pages/man1/read.1.html </code></pre>
+        <p>続いて、こちらがスクリプト。</p>
+        <pre><code>$ cat test2.sh 
 #!/bin/bash
 readarray -t linevar < sample.txt
 for line in "${linevar[@]}";do
@@ -53,9 +56,9 @@ done
 
 while read -r line ;do
   echo "$line"
-done < sample.txt
-
-$ ./test2.sh 
+done < sample.txt</code></pre>
+        <p>実行結果。いい感じですね。</p>
+        <pre><code>$ ./test2.sh 
 URL1: https://www.google.com
 URL2: https://wiki.archlinux.org/title/Bash
 URL3: https://man7.org/linux/man-pages/man1/read.1.html
@@ -63,61 +66,64 @@ URL1: https://www.google.com
 URL2: https://wiki.archlinux.org/title/Bash
 URL3: https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
         <br>
+
         <h2>3. 注意点</h2>
         <h3>3-1. readコマンドの-tオプション</h3>
-        <p>readコマンドから-tを抜いてみます。</p>
+        <p>readコマンドから-tを抜いてみます。(while部分は省略)</p>
         <pre><code> $ cat test2.sh 
 #!/bin/bash
 readarray linevar < sample.txt
 for line in "${linevar[@]}";do
   echo "${line}" 
-done
-
-$ ./test2.sh 
+done</code></pre>
+        <p>すると、次のように改行が目立つようになります。</p>
+        <pre><code>$ ./test2.sh 
 URL1: https://www.google.com
 
 URL2: https://wiki.archlinux.org/title/Bash
 
 URL3: https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
-        
-        <p>各行の間に1行追加されました。readarrayはnewlineごと取り込んでしまいますので、多くの場合では<code>-t</code>オプションにてnewlineの除去が必要になります。</p>
+        <p>readarrayはnewlineごと取り込んでしまいますので、多くの場合では<code>-t</code>オプションにてnewlineの除去が必要になります。</p>
         <br>
+
         <h3>3-2. readコマンドで作成した変数を""なしで呼びます。</h3>
         <pre><code>$ cat test2.sh 
 #!/bin/bash
 readarray -t linevar < sample.txt
 for line in ${linevar[@]};do
   echo "${line}" 
-done
-
-$ ./test2.sh 
+done</code></pre>
+        <p>こちらを実行すると、、、sample.txt内のnewlineだけでなく、各Array要素がスペースで分割されてしまいました。</p>
+        <pre><code>$ ./test2.sh 
 URL1:
 https://www.google.com
 URL2:
 https://wiki.archlinux.org/title/Bash
 URL3:
 https://man7.org/linux/man-pages/man1/read.1.html</code></pre>
-        <p>sample.txt内のnewlineだけでなく、各Array要素がスペースで分割されてしまいました。</p>
+        <p>きっと元々要素の中にある空白とArrayの区切りとしての空白の見分けがつかなくなるんでしょうね。</p>
         <br>
+
         <h3>3-3. readコマンドの-rオプション</h3>
-        <p>例のためにサンプルテキストファイルを変更します。</p>
+        <p>サンプルテキストファイルを変更します。</p>
         <pre><code>$ cat sample2.txt 
 C:\Users\Name\Documents
 C:\Users\Name\Desktop
 C:\Program Files\App
 D:\Data\Projects\Test</code></pre>
+        <br>
         <p>このときreadコマンドを-rなしで実行すると次のような結果となります。</p>
         <pre><code>#!/bin/bash
 while read line ;do
   echo $line
 done < sample2.txt
-            
+
 $ ./test2.sh 
 C:UsersNameDocuments
 C:UsersNameDesktop
 C:Program FilesApp
 D:DataProjectsTest</code></pre>
-        <p>-rなしでは\がエスケープだと認識されてしまうんですね。</p>
+        <p>-rなしではファイルの中の\がエスケープだと認識されてしまうんですね。</p>
         <br>
         <p>ちなみに、readコマンドの-tオプションはユーザーインプットを受け付ける際のタイムアウト値です。また、readコマンドでは\nは変数に取り込まれません。</p>
         <br>
