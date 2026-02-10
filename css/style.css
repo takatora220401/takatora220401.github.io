@@ -126,6 +126,7 @@ blockquote {
   overflow-x: auto;
   margin: 8px 0;
   text-align: left;
+  max-width: 100%;
 }
 
 .info-card code {
