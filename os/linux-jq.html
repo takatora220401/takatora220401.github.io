@@ -154,28 +154,34 @@ Diana</code></pre>
         <p>以下のように書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
         <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
         <br>
-        <p>何がだめかというとこの書き方だと全ての組み合わせになってしまいます。以下、省略ver.ですが出力結果をお見せします。欲しいのは101とAliceの組み合わせだけですが、101と他のメンバーの組み合わせまで作られてしまっています。</p>
+        <p>何がだめかというとこの書き方だと全ての組み合わせになってしまいます。以下、省略ver.ですが出力結果をお見せします。欲しいのは101, Alice, Aliceの所属チーム1(Platform)の組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
         <pre><code>
 {
-  "employee": [
-    {
-      "employee_ID": 101,
-      "employee_name": "Alice"
-    },
-    {
-      "employee_ID": 101,
-      "employee_name": "Bob"
-    },
-    {
-      "employee_ID": 101,
-      "employee_name": "Charlie"
-    },
-    {
-      "employee_ID": 101,
-      "employee_name": "Diana"
-    },
-        </code></pre>
+  "employee": {
+    "employee_id": 101,
+    "employee_name": "Alice",
+    "team": "Platform"
+  }
+}
+{
+  "employee": {
+    "employee_id": 101,
+    "employee_name": "Alice",
+    "team": "Frontend"
+  }
+}
+{
+  "employee": {
+    "employee_id": 101,
+    "employee_name": "Alice",
+    "team": "Platform"
+  }
+}</code></pre>
+      <br>
+      <p>Array野中の特定のkey-valueを組み合わせて新しい形のObjectを作る時は、<code>一度の.[]で全要素を取得した後は|で処理</code>します。</p>
       </article>
+        <h2>4. jq サブコマンド</h2>
+        
     </main>
 
     <footer class="site-footer">
