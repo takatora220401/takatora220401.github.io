@@ -103,6 +103,7 @@ blockquote {
   text-align: left;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border-left: 6px solid #2563eb;
+  max-width: 100%;
 }
 /* Article lists */
 .info-card ul,
@@ -127,7 +128,6 @@ blockquote {
   margin: 8px 0;
   text-align: left;
   white-space: pre;
-  max-width: 100%;
 }
 
 .info-card code {
