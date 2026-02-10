@@ -155,7 +155,8 @@ Diana</code></pre>
 }</code></pre>
         <p>以下のように書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
         <pre><code>jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
-        <p>何がだめかというと全ての組み合わせになっています。以下、省略ver.ですが出力結果をお見せします。欲しいのは101, Alice, Aliceの所属チーム1(Platform)などの組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
+        <p>何がだめかというとIDx名前xチームが全ての組み合わせになっています。例えば、欲しいのは101, Alice, Aliceの所属チーム1(Platform)などの組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
+        <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、<code>.[]で全要素を取得するのは1回だけ</code>です。</p>
         <pre><code>{
   "employee": {
     "employee_id": 101,
@@ -177,8 +178,6 @@ Diana</code></pre>
     "team": "Platform"
   }
 }</code></pre>
-       <br>
-       <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、<code>一度の.[]で全要素を取得した後は|で処理</code>します。</p>
        <br>
        <h2>4. jq サブコマンド</h2>
        
