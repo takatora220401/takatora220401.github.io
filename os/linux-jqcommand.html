@@ -124,8 +124,64 @@ Diana</code></pre>
     "Charlie",
     "Diana"
   ]
-}</code></pre>        
+}</code></pre>
 
+        <h2>3. jq と | </h2>
+        <p>jqコマンドはpipe (|)機能を用いて段階的にフィルターを適用することで上記より複雑な処理をすることができます。例えば、上記ではemployee_nameだけを取得していますが、employee_nameとemployee_ID, teamの組み合わせを取得することができるようになります。</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{employee: [.company.employees[] | {id, name, team}]}'
+{
+  "employee": [
+    {
+      "id": 101,
+      "name": "Alice",
+      "team": "Platform"
+    },
+    {
+      "id": 102,
+      "name": "Bob",
+      "team": "Frontend"
+    },
+    {
+      "id": 103,
+      "name": "Charlie",
+      "team": "Platform"
+    },
+    {
+      "id": 104,
+      "name": "Diana",
+      "team": "Platform"
+    }
+  ]
+}</code></pre>
+        <p>以下のように書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
+        <br>
+        <p>何がだめかというとこの書き方だと全ての組み合わせになってしまいます。以下、省略ver.ですが出力結果をお見せします。欲しいのは101, Alice, Aliceの所属チーム1(Platform)の組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
+        <pre><code>
+{
+  "employee": {
+    "employee_id": 101,
+    "employee_name": "Alice",
+    "team": "Platform"
+  }
+}
+{
+  "employee": {
+    "employee_id": 101,
+    "employee_name": "Alice",
+    "team": "Frontend"
+  }
+}
+{
+  "employee": {
+    "employee_id": 101,
+    "employee_name": "Alice",
+    "team": "Platform"
+  }
+}</code></pre>
+        <br>
+        <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、<code>一度の.[]で全要素を取得した後は|で処理</code>します。</p>
+ 
       </article>
     </main>
 
