@@ -1,221 +1,148 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =========================
+   Base
+   ========================= */
+
+html {
+  line-height: 1.6;
 }
 
-/* Base */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(180deg, #f3f4f7, #e9ebf0);
-  color: #2b2b2b;
-  line-height: 1.7;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+               "Segoe UI", sans-serif;
+  background: #ffffff;
+  color: #222222;
 }
 
-/* Layout */
-.site-container {
-  max-width: 960px;
+
+/* =========================
+   Content Scope
+   ========================= */
+
+/* 本文として扱うコンテナを列挙 */
+.content,
+article.info-card,
+main {
+  max-width: 800px;
   margin: 0 auto;
-  padding: 40px 20px;
-  text-align: center;
+  padding: 2rem 1.5rem;
 }
 
-/* Header */
-.site-header {
-  margin-bottom: 32px;
-}
 
-.site-header h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-}
+/* =========================
+   Text Rhythm
+   ========================= */
 
-.tagline {
-  margin-top: 8px;
-  color: #555;
-  font-size: 1.05rem;
-}
-
-/* Tabs */
-.tabs {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-.tabs a {
-  text-decoration: none;
-  padding: 9px 16px;
-  border-radius: 999px;
-  background-color: #ffffff;
-  color: #333;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: all 0.2s ease;
-}
-
-.tabs a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-}
-
-.tabs a.active {
-  background-color: #1f2933;
-  color: #ffffff;
-}
-p {
-  margin: 0.6em 0;
-}
-
-h2 {
-  margin: 1.2em 0 0.6em;
-}
-
-h3 {
-  margin: 1em 0 0.5em;
-}
-
-pre {
-  position: relative;
-  overflow-x: auto;
-  max-width: 100%;
-  margin: 0.8em 0;
-}
-
-pre code {
-  display: block;
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+article.info-card h1,
+article.info-card h2,
+article.info-card h3,
+article.info-card h4,
+main h1,
+main h2,
+main h3,
+main h4 {
   line-height: 1.3;
+  font-weight: 600;
+  margin-top: 2.2rem;
+  margin-bottom: 0.8rem;
 }
 
-blockquote {
-  background: #f5f5f5;
-  border-left: 4px solid #ccc;
-  padding: 8px 18px;
-  margin: 8px 0;
-  color: #555;
-  white-space: pre-wrap;
-}
-/* for list indentation */ 
-.list-toc {
-  padding-left: 1.5rem; /* try 1.5rem–3rem */
+.content h2,
+article.info-card h2,
+main h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 0.3rem;
 }
 
-/* For a lock of paragragh*/
-.bio {
-  white-space: pre-line;
-  line-height: 1.7;
-  word-break: break-word;
-  overflow-wrap: anywhere;
+.content p,
+article.info-card p,
+main p {
+  margin: 0.8rem 0;
 }
 
-/* For HOME, About and topi details pages*/
-/* Content */
-.content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-.info-card {
-  background-color: #ffffff;
-  padding: 28px 32px;
-  border-radius: 14px;
-  text-align: left;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  border-left: 6px solid #2563eb;
-  min-width: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-/* Article lists */
-.info-card ul,
-.info-card ol {
-  margin-left: 2.2rem;
-  margin-top: 12px;
-  margin-bottom: 16px;
-  padding-left: 0;              /* reset browser default */
-  list-style-position: outside; /* consistent behavior */
+
+/* =========================
+   Lists
+   ========================= */
+
+.content ul,
+.content ol,
+article.info-card ul,
+article.info-card ol,
+main ul,
+main ol {
+  margin: 0.8rem 0 0.8rem 1.5rem;
 }
 
-.info-card li {
-  margin-bottom: 3px;
+.content li,
+article.info-card li,
+main li {
+  margin: 0.3rem 0;
 }
 
-/* Code blocks */
-.info-card pre {
-  background-color: #2b2b2b; /* dark gray */
-  padding: 8px 18px;
-  border-radius: 10px;
-  overflow-x: auto;
-  margin: 0.8px 0;
-  white-space: pre;
-  text-align: left;
-  max-width: 100%;
-}
 
-.info-card code {
-  color: #f8f8f2; /* off-white text */
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.9rem;
-  line-height: 1.3;
-  overflow: hidden;
-  display: block;
-}
+/* =========================
+   Code
+   ========================= */
 
-.info-card p code {
-  background-color: #f1f3f5;
-  color: #c7254e;
-  padding: 2px 6px;
+.content code,
+article.info-card code,
+main code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95em;
+  background: #f2f4f6;
+  padding: 0.1em 0.3em;
   border-radius: 4px;
-  font-size: 0.85em;
+}
+
+.content pre,
+article.info-card pre,
+main pre {
+  margin: 1rem 0;
+  padding: 0.8rem 1rem;
+  background: #f6f8fa;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.content pre code,
+article.info-card pre code,
+main pre code {
+  background: none;
+  padding: 0;
+  line-height: 1.4;
 }
 
 
+/* =========================
+   Info Card Decoration
+   ========================= */
 
-/* Cards */
-/* Grid layout for subject index pages */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
-  justify-items: center;
+article.info-card {
+  background: #eef6ff;
+  border-left: 4px solid #4c8bf5;
+  border-radius: 4px;
 }
 
 
-/* Compact topic cards (Instagram-like) */
-.topic-card {
-  background-color: #ffffff;
-  padding: 14px;
-  border-radius: 12px;
-  text-align: left;
-  max-width: 240px;
-  width: 100%;
-  font-size: 0.85rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+/* =========================
+   Links
+   ========================= */
+
+.content a,
+article.info-card a,
+main a {
+  color: #1a73e8;
+  text-decoration: none;
 }
 
-.topic-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-}
-
-/* Topic card image */
-.topic-card img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-/* Footer */
-.site-footer {
-  margin-top: 50px;
-  font-size: 0.85rem;
-  color: #666;
+.content a:hover,
+article.info-card a:hover,
+main a:hover {
+  text-decoration: underline;
 }
