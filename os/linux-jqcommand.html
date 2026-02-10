@@ -153,7 +153,7 @@ Diana</code></pre>
     }
   ]
 }</code></pre>
-        <p>以下のように書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
+        <p>以下のように.[]を何度も書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
         <pre><code>jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
         <p>何がだめかというとIDx名前xチームが全ての組み合わせになっています。例えば、欲しいのは101, Alice, Aliceの所属チーム1(Platform)などの組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
         <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、<code>.[]で全要素を取得するのは1回だけ</code>です。</p>
