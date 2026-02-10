@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OS | DevOpsエンジニアの備忘録</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
@@ -155,9 +154,7 @@ Diana</code></pre>
   ]
 }</code></pre>
         <p>以下のように書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
-        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
-        
-        <br>
+        <pre><code>jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
         <p>何がだめかというと全ての組み合わせになっています。以下、省略ver.ですが出力結果をお見せします。欲しいのは101, Alice, Aliceの所属チーム1(Platform)などの組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
         <pre><code>{
   "employee": {
