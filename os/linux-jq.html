@@ -75,7 +75,7 @@
   }
 }</code></pre>
         <br>
-        <h3>2-2. -r オプション</h3>
+        <h3>2-3. -r オプション</h3>
         <p>文字列データを生出力したい時は<code>-r</code>オプションを使います。上記の動画内では""を取り除くというような言われ方をしていますが、手元で動かしてる感じjson形式ではなく生データとするといった方が正確な気がします。Manページでも次のように書いてますし。</p>
         <blockquote>--raw-output / -r: 
 With this option, if the filter´s result is a string then it  willbe written directly to standard output rather than being formattedas  a  JSON  string  with quotes. This can be useful for making jqfilters talk to non-JSON-based systems.</blockquote>
@@ -94,7 +94,7 @@ Diana</code></pre>
 "Diana"</code></pre>
         <br>
 
-        <h3>2-3. Array/Object Constractor</h3>
+        <h3>2-4. Array/Object Constractor</h3>
         <h4>Array Constractor</h4>
         <p>jq '<code>[Object ID index]</code>'で出力結果をArrayに変換することができます。</p>
         <p>例を見てみましょう。</p>
@@ -113,7 +113,7 @@ Diana</code></pre>
   "Diana"
 ]</code></pre>
         <h4>Object Constractor</h4>
-        <p>jq '<code>{Object ID index1, Object ID index2}</code>'で出力結果をObjectに変換することができます。</p>
+        <p>jq '<code>{"new_key", Object ID_index1}</code>'で出力結果をObjectに変換することができます。</p>
         <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee_name":[.company.employees[].name]}'
 {
   "employee_name": [
@@ -124,7 +124,57 @@ Diana</code></pre>
   ]
 }</code></pre>
 
-        <h3></h3>
+        <h2>3. jq と | </h2>
+        <p>jqコマンドはpipe (|)機能を用いて段階的にフィルターを適用することで上記より複雑な処理をすることができます。例えば、上記ではemployee_nameだけを取得していますが、employee_nameとemployee_ID, teamの組み合わせを取得することができるようになります。</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{employee: [.company.employees[] | {id, name, team}]}'
+{
+  "employee": [
+    {
+      "id": 101,
+      "name": "Alice",
+      "team": "Platform"
+    },
+    {
+      "id": 102,
+      "name": "Bob",
+      "team": "Frontend"
+    },
+    {
+      "id": 103,
+      "name": "Charlie",
+      "team": "Platform"
+    },
+    {
+      "id": 104,
+      "name": "Diana",
+      "team": "Platform"
+    }
+  ]
+}</code></pre>
+        <p>以下のように書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
+        <br>
+        <p>何がだめかというとこの書き方だと全ての組み合わせになってしまいます。以下、省略ver.ですが出力結果をお見せします。欲しいのは101とAliceの組み合わせだけですが、101と他のメンバーの組み合わせまで作られてしまっています。</p>
+        <pre><code>
+{
+  "employee": [
+    {
+      "employee_ID": 101,
+      "employee_name": "Alice"
+    },
+    {
+      "employee_ID": 101,
+      "employee_name": "Bob"
+    },
+    {
+      "employee_ID": 101,
+      "employee_name": "Charlie"
+    },
+    {
+      "employee_ID": 101,
+      "employee_name": "Diana"
+    },
+        </code></pre>
       </article>
     </main>
 
