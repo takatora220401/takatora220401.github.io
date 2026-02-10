@@ -104,6 +104,9 @@ blockquote {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border-left: 6px solid #2563eb;
   min-width: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 /* Article lists */
 .info-card ul,
@@ -126,6 +129,7 @@ blockquote {
   border-radius: 10px;
   overflow-x: auto;
   margin: 8px 0;
+  white-space: pre;
   text-align: left;
   max-width: 100%;
 }
@@ -135,6 +139,7 @@ blockquote {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.9rem;
   line-height: 1.5;
+  overflow: hidden;
 }
 
 .info-card p code {
