@@ -36,7 +36,14 @@
         <p>jqコマンドについて</p>
         <br>
         <h2>1. モチベーション&勉強方法</h2>
-        <p>新卒で入った会社でNSXというネットワーク仮想化製品が送信するSNMP Ttrapの一覧を取得するのにjqコマンドを使っているマニュアルがあったんですね。意味もよくわからずに使っていたのですが、ちゃんと理解したいと思っていたのでこれを機に学びます。とりあえず、次の動画を視聴した後に手元で動かしてみたいと思います(足りない部分はChatGPTとかで補足かなぁ)。</p>
+        <p>新卒で入った会社でNSXというネットワーク仮想化製品が送信するSNMP Ttrapの一覧を取得するのにjqコマンドを使っているマニュアルがあったんですね。意味もよくわからずに使っていたのですが、ちゃんと理解したいと思っていたのでこれを機に学びます。というのは、私の個人的なモチベなわけですが一般的にjqコマンドを知っておくと良い理由はこんな感じでしょうか。</p>
+        <ul>
+          <li>jsonデータの編集に便利(例：オブジェクトの形を変更、データの追加・変更など)</li>
+          <li>jsonデータをきれいに表示してくれる</li>
+        </ul>  
+        <p>2つ目の主張がピンとこない方は<a href="/os/linux-json-sample-messy.json">こちら</a>をみるとご理解いただけると思います。</p>
+        <br>
+        <p>進め方としては、次の動画を視聴した後に手元で動かしてみたいと思います(足りない部分はChatGPTとかで補足かなぁ)。</p>
         <ul>
             <li><a href="https://www.youtube.com/watch?v=m9dhrq9iRHA">The Ultimate JQ Tutorial: Everything You Need to Know to Parse JSON Like a Pro</a></li>
             <li><a href="https://www.youtube.com/watch?v=j7xZ2VkLYIY">jq: A Practical Guide</a></li>
@@ -45,10 +52,44 @@
         <p>ちなみに、1つのLinuxコマンドのためだけに2つ以上の教材を使ったのは自分なりのこだわりです。どんなすごい人でも教え方の癖や知識の偏りがあるはずなので、バランスの取れた見方ができるように色んなソースから情報を取るようにしています。</p>
         <br>
         <h2>2. jq基礎</h2>
-        <p>構文</p>
-        <pre><code>jq '<filter>' <input data> または cat/echo | jq '<filter>'
+        <h3>2-1. 基本の基本</h3>
+        <p>まずは構文です。</p>
+        <pre><code>jq <filter> <input data> または cat/echo | jq <filter>
 #例
 cat linux-jq-sample.json |jq '.'         </code></pre>
+        <br>
+        <h3>2-2. 深い階層のデータへのアクセス</h3>
+        <p>DevOpsでの文脈だとオブジェクトに対してjqを使用することになると思うのでその前提で続けます。(<code>jq '.[]'</code>ではなく<code>jq '.'</code>となります)</p>
+        <p>次のようにkeyを連結させるだけですね。ちなみに、下の例でいう.sukey.sub-subkeyはObject ID indexと呼ばれることもあるみたいです。</p>
+        <pre><code>jq '.sukey.sub-subkey'
+
+#例
+$ cat ./os/linux-jq-sample.json |jq '.offices'
+{
+  "Tokyo": {
+    "opened": 2016,
+    "capacity": 120
+  },
+  "Osaka": {
+    "opened": 2019,
+    "capacity": 60
+  }
+}</code></pre>
+        <h3>-r オプション</h3>
+        <p>文字列データを生出力したい時は<code>-r</code>オプションを使います。上記の動画内では""を取り除くというような言われ方をしていますが、手元で動かしてる感じjson形式ではなく生データとするといった方が正確な気がします。Manページでも次のように書いてますし。</p>
+        <blockquote>--raw-output / -r: 
+With this option, if the filter´s result is a string then it  willbe written directly to standard output rather than being formattedas  a  JSON  string  with quotes. This can be useful for making jqfilters talk to non-JSON-based systems.</blockquote>
+        
+        <pre><code>$ cat ./linux-jq-sample.json |jq -r '.company.employees[].name'
+Alice
+Bob
+Charlie
+Diana
+$ cat ./linux-jq-sample.json |jq '.company.employees[].name'
+"Alice"
+"Bob"
+"Charlie"
+"Diana"</code></pre>
         <h2>3. 実際に動かしてみる</h2>
       </article>
     </main>
