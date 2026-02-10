@@ -51,6 +51,13 @@
         </ul>
         <p>jsonのサンプルとしては、<a href="/os/linux-jq-sample.json">こちら</a>を使おうと思います。ちなみに、1つのLinuxコマンドのためだけに2つ以上の教材を使ったのは自分なりのこだわりです。どんなすごい人でも教え方の癖や知識の偏りがあるはずなので、バランスの取れた見方ができるように色んなソースから情報を取るようにしています。</p>
         <br>
+        <h2>2. jq基礎</h2>
+        <h3>2-1. 基本の基本</h3>
+        <p>まずは構文です。</p>
+        <pre><code>jq filter input_file または cat/echo | jq filter</code></pre>
+        <p>例: </p>
+        <code><pre>cat linux-jq-sample.json |jq '.'</code></pre>
+        <br>
 
       </article>
     </main>
