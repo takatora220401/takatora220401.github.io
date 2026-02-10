@@ -128,7 +128,7 @@ Diana</code></pre>
 
         <h2>3. jq と | </h2>
         <p>jqコマンドはpipe (|)機能を用いて段階的にフィルターを適用することで上記より複雑な処理をすることができます。例えば、上記ではemployee_nameだけを取得していますが、employee_nameとemployee_ID, teamの組み合わせを取得することができるようになります。</p>
-        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{employee: [.company.employees[] | {id, name, team}]}'
+        <pre><code>$ cat linux-jq-sample.json |jq '{employee: [.company.employees[] | {id, name, team}]}'
 {
   "employee": [
     {
@@ -155,8 +155,8 @@ Diana</code></pre>
 }</code></pre>
         <p>以下のように.[]を何度も書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
         <pre><code>jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
-        <p>何がだめかというとIDx名前xチームが全ての組み合わせになっています。例えば、欲しいのは101, Alice, Aliceの所属チーム1(Platform)などの組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
-        <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、'.example[] | new_key1: .element1, new_key2: .element2}’のように書きましょう。</p>
+        <p>何がだめかというとIDx名前xチームが全ての組み合わせになっています。例えば、欲しいのは101, Alice, Aliceの所属チーム(Platform)などの組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
+        <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、ギリギリまでフィルターをかけましょう。</p>
         <pre><code>{
   "employee": {
     "employee_id": 101,
@@ -186,7 +186,7 @@ Diana</code></pre>
 2</code></pre>
         <br>
        <h3>select</h3>
-       <p>データの値に基づいてフィルタを設定するもの。絶対必要ですね。</p>
+       <p>データの値に基づいてフィルタを設定するもの。絶対便利ですね。</p>
        <pre><code>$ cat sample.json|jq '[.projects[]|select(.budget > 100000)|{name: .name, budget: .budget}]'
 [
   {
