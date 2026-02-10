@@ -54,7 +54,7 @@
         <h2>2. jq基礎</h2>
         <h3>2-1. 基本の基本</h3>
         <p>まずは構文です。</p>
-        <pre><code>jq <filter> <input data> または cat/echo | jq <filter></code></pre>
+        <pre><code>jq filter input_file または cat/echo | jq filter</code></pre>
         <p>例: </p>
         <code><pre>cat linux-jq-sample.json |jq '.'         </code></pre>
         <br>
@@ -96,7 +96,7 @@ Diana</code></pre>
 
         <h3>2-3. Array/Object Constractor</h3>
         <h4>Array Constractor</h4>
-        <p>jq '<code>[</code>Object ID index<code>]</code>'で出力結果をArrayに変換することができます。</p>
+        <p>jq '<code>[Object ID index]</code>'で出力結果をArrayに変換することができます。</p>
         <p>例を見てみましょう。</p>
         <p>例: Array Constractorなしの場合</p>
         <pre><code>$ cat ./os/linux-jq-sample.json |jq '.company.employees[].name'
@@ -113,7 +113,18 @@ Diana</code></pre>
   "Diana"
 ]</code></pre>
         <h4>Object Constractor</h4>
-        <p>jq '<code>{</code>Object ID index<code>}</code>'で出力結果をArrayに変換することができます。</p>
+        <p>jq '<code>{Object ID index1, Object ID index2}</code>'で出力結果をObjectに変換することができます。</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee_name":[.company.employees[].name]}'
+{
+  "employee_name": [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "Diana"
+  ]
+}</code></pre>
+
+        <h3></h3>
       </article>
     </main>
 
