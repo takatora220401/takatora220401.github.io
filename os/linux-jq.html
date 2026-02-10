@@ -94,11 +94,12 @@ Diana</code></pre>
 "Diana"</code></pre>
         <br>
 
-        <h3>2-3. Array Constractor</h3>
+        <h3>2-3. Array/Object Constractor</h3>
+        <h4>Array Constractor</h4>
         <p>jq '<code>[</code><object ID><code>]</code>'で出力結果をArrayに変換することができます。</p>
         <p>例を見てみましょう。</p>
         <p>例: Array Constractorなしの場合</p>
-        <pre><code> cat ./os/linux-jq-sample.json |jq '.company.employees[].name'
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '.company.employees[].name'
 "Alice"
 "Bob"
 "Charlie"
@@ -111,7 +112,7 @@ Diana</code></pre>
   "Charlie",
   "Diana"
 ]</code></pre>
-        
+        <h4>Object Constractor</h4>
       </article>
     </main>
 
