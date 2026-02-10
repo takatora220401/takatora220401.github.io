@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>OS | DevOpsエンジニアの備忘録</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="site-container">
+
+    <!-- Header -->
+    <header class="site-header">
+      <h1>Bash - jqコマンド</h1>
+      <p class="tagline">
+        Last Updated: 2026-02-10
+      </p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <a href="/index.html">HOME</a>
+      <a href="/cloud/cloud-index.html">Cloud</a>
+      <a href="/k8s/k8s-index.html" >Kubernetes</a>
+      <a href="/auto/auto-index.html">Automation</a>
+      <a href="/os/os-index.html" class="active">OS(Linux/Windows etc.)</a>
+      <a href="/db/db-index.html">DB</a>
+      <a href="/network/network-index.html">Networking</a>
+      <a href="/misc/misc-index.html">Misc</a>
+      <a href="/about.html">About Me</a>
+    </nav>
+    <!-- Article Content -->
+    <main class="content">
+      <article class="info-card">
+
+        <p>jqコマンドについて</p>
+        <br>
+        <h2>1. モチベーション&勉強方法</h2>
+        <p>新卒で入った会社でNSXというネットワーク仮想化製品が送信するSNMP Ttrapの一覧を取得するのにjqコマンドを使っているマニュアルがあったんですね。意味もよくわからずに使っていたのですが、ちゃんと理解したいと思っていたのでこれを機に学びます。というのは、私の個人的なモチベなわけですが一般的にjqコマンドを知っておくと良い理由はこんな感じでしょうか。</p>
+        <ul>
+          <li>jsonデータの編集に便利(例：オブジェクトの形を変更、データの追加・変更など)</li>
+          <li>jsonデータをきれいに表示してくれる</li>
+        </ul>  
+        <p>2つ目の主張がピンとこない方は<a href="/os/linux-json-sample-messy.json">こちら</a>をみるとご理解いただけると思います。</p>
+        <br>
+        <p>進め方としては、次の動画を視聴した後に手元で動かしてみたいと思います</p>
+        <p>(足りない部分はChatGPTとかで補足かなぁ)。</p>
+        <ul>
+            <li><a href="https://www.youtube.com/watch?v=m9dhrq9iRHA">The Ultimate JQ Tutorial: Everything You Need to Know to Parse JSON Like a Pro</a></li>
+            <li><a href="https://www.youtube.com/watch?v=j7xZ2VkLYIY">jq: A Practical Guide</a></li>
+        </ul>
+        <p>jsonのサンプルとしては、<a href="/os/linux-jq-sample.json">こちら</a>を使おうと思います。ちなみに、1つのLinuxコマンドのためだけに2つ以上の教材を使ったのは自分なりのこだわりです。どんなすごい人でも教え方の癖や知識の偏りがあるはずなので、バランスの取れた見方ができるように色んなソースから情報を取るようにしています。</p>
+        <br>
+
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 takatora</p>
+    </footer>
+  </div>
+</body>
+</html>
