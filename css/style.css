@@ -1,168 +1,191 @@
-/* =========================
-   Reset / Base
-   ========================= */
-
+/* Reset */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-}
-
+/* Base */
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont,
-               "Segoe UI", sans-serif;
-  line-height: 1.6;
-  color: #222;
-  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(180deg, #f3f4f7, #e9ebf0);
+  color: #2b2b2b;
+  line-height: 1.7;
 }
 
-
-/* =========================
-   Main Article / Content
-   ========================= */
-
-article {
-  max-width: 820px;
+/* Layout */
+.site-container {
+  max-width: 960px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 40px 20px;
+  text-align: center;
 }
 
-
-/* =========================
-   Headings (行間の主犯)
-   ========================= */
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.25;
-  font-weight: 600;
-  margin-top: 1.8rem;
-  margin-bottom: 0.5rem;
+/* Header */
+.site-header {
+  margin-bottom: 32px;
 }
 
-h1 {
-  font-size: 2rem;
+.site-header h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
-h2 {
-  font-size: 1.45rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.25rem;
+.tagline {
+  margin-top: 8px;
+  color: #555;
+  font-size: 1.05rem;
 }
 
-h3 {
-  font-size: 1.2rem;
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
 }
 
-
-/* =========================
-   Paragraphs
-   ========================= */
-
-p {
-  margin: 0.5rem 0;
-}
-
-
-/* =========================
-   Lists
-   ========================= */
-
-ul,
-ol {
-  margin: 0.5rem 0 0.5rem 1.5rem;
-  padding: 0;
-}
-
-li {
-  margin: 0.25rem 0;
-}
-
-
-/* =========================
-   Code (ここが一番重要)
-   ========================= */
-
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.95em;
-  background: #f2f4f6;
-  padding: 0.1em 0.3em;
-  border-radius: 4px;
-}
-
-pre {
-  margin: 0.6rem 0;              /* ← デカい余白を殺す */
-  padding: 0.75rem 1rem;
-  background: #f6f8fa;
-  border-radius: 6px;
-  overflow-x: auto;
-}
-
-pre code {
-  display: block;
-  padding: 0;
-  background: none;
-  line-height: 1.3;              /* ← 行間が広く見える原因を潰す */
-  white-space: pre;              /* 念のため明示 */
-}
-
-
-/* =========================
-   Info Card
-   ========================= */
-
-article.info-card {
-  background: #eef6ff;
-  border-left: 4px solid #4c8bf5;
-  border-radius: 4px;
-}
-
-
-/* =========================
-   Tables
-   ========================= */
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0.8rem 0;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 0.4rem 0.6rem;
-  text-align: left;
-}
-
-th {
-  background: #f3f4f6;
-}
-
-
-/* =========================
-   Links
-   ========================= */
-
-a {
-  color: #1a73e8;
+.tabs a {
   text-decoration: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #333;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
 }
 
-a:hover {
-  text-decoration: underline;
+.tabs a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.tabs a.active {
+  background-color: #1f2933;
+  color: #ffffff;
+}
+
+blockquote {
+  background: #f5f5f5;
+  border-left: 4px solid #ccc;
+  padding: 8px 18px;
+  margin: 8px 0;
+  color: #555;
+  white-space: pre-wrap;
+}
+/* for list indentation */ 
+.list-toc {
+  padding-left: 1.5rem; /* try 1.5rem–3rem */
+}
+
+/* For a lock of paragragh*/
+.bio {
+  white-space: pre-line;
+  line-height: 1.7;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* For HOME, About and topi details pages*/
+/* Content */
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.info-card {
+  background-color: #ffffff;
+  padding: 28px 32px;
+  border-radius: 14px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-left: 6px solid #2563eb;
+}
+/* Article lists */
+.info-card ul,
+.info-card ol {
+  margin-left: 2.2rem;
+  margin-top: 12px;
+  margin-bottom: 16px;
+  padding-left: 0;              /* reset browser default */
+  list-style-position: outside; /* consistent behavior */
+}
+
+.info-card li {
+  margin-bottom: 3px;
+}
+
+/* Code blocks */
+.info-card pre {
+  background-color: #2b2b2b; /* dark gray */
+  padding: 8px 18px;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 8px 0;
+  text-align: left;
+  max-width: 100%;
+}
+
+.info-card code {
+  color: #f8f8f2; /* off-white text */
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.info-card p code {
+  background-color: #f1f3f5;
+  color: #c7254e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
 }
 
 
-/* =========================
-   Misc
-   ========================= */
 
-hr {
-  margin: 1.5rem 0;
-  border: none;
-  border-top: 1px solid #ddd;
+/* Cards */
+/* Grid layout for subject index pages */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  justify-items: center;
+}
+
+
+/* Compact topic cards (Instagram-like) */
+.topic-card {
+  background-color: #ffffff;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: left;
+  max-width: 240px;
+  width: 100%;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.topic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Topic card image */
+.topic-card img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 50px;
+  font-size: 0.85rem;
+  color: #666;
 }
