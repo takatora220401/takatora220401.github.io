@@ -101,13 +101,13 @@ Diana</code></pre>
         <p>jq '<code>[Object ID index]</code>'で出力結果をArrayに変換することができます。</p>
         <p>例を見てみましょう。</p>
         <p>例: Array Constractorなしの場合</p>
-        <pre><code>$ cat ./os/linux-jq-sample.json |jq '.company.employees[].name'
+        <pre><code>$ cat linux-jq-sample.json |jq '.company.employees[].name'
 "Alice"
 "Bob"
 "Charlie"
 "Diana"</code></pre>
         <p>例: Array Constractorありの場合</p>
-        <pre><code>$ cat ./os/linux-jq-sample.json |jq '[.company.employees[].name]'
+        <pre><code>$ cat linux-jq-sample.json |jq '[.company.employees[].name]'
 [
   "Alice",
   "Bob",
@@ -116,7 +116,7 @@ Diana</code></pre>
 ]</code></pre>
         <h4>Object Constractor</h4>
         <p>jq '<code>{"new_key", Object ID_index1}</code>'で出力結果をObjectに変換することができます。</p>
-        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee_name":[.company.employees[].name]}'
+        <pre><code>$ cat inux-jq-sample.json |jq '{"employee_name":[.company.employees[].name]}'
 {
   "employee_name": [
     "Alice",
@@ -156,7 +156,7 @@ Diana</code></pre>
         <p>以下のように.[]を何度も書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
         <pre><code>jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
         <p>何がだめかというとIDx名前xチームが全ての組み合わせになっています。例えば、欲しいのは101, Alice, Aliceの所属チーム1(Platform)などの組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
-        <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、<code>.[]で全要素を取得するのは1回だけ</code>です。</p>
+        <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、'.example[] | new_key1: .element1, new_key2: .element2}’のように書きましょう。</p>
         <pre><code>{
   "employee": {
     "employee_id": 101,
@@ -180,7 +180,36 @@ Diana</code></pre>
 }</code></pre>
        <br>
        <h2>4. jq サブコマンド</h2>
-       
+       <h3>length</h3>
+       <p>条件に合致するデータの数を数えるのに使えそうです。</p>
+       <pre><code>$ cat sample.json|jq '.offices|length'
+2</code></pre>
+        <br>
+       <h3>select</h3>
+       <p>データの値に基づいてフィルタを設定するもの。絶対必要ですね。</p>
+       <pre><code>$ cat sample.json|jq '[.projects[]|select(.budget > 100000)|{name: .name, budget: .budget}]'
+[
+  {
+    "name": "Orion",
+    "budget": 1200000
+  },
+  {
+    "name": "Apollo",
+    "budget": 600000
+  }
+]</code></pre>
+       <br>
+       <p>他にも挙げたらきりがないくらいありますが、最後にもう1つだけ。</p>
+       <h3>@csv</h3>
+       <p>Arrayのみが対象ですがCSVファイルにエキスポートする際に使えるみたいですね</p>
+       <pre><code>$ cat sample.json|jq '.projects[]|select(.budget > 100000)|[.name, .budget]|@csv' > sample.csv
+$ cat sample.csv
+"\"Orion\",1200000"
+"\"Apollo\",600000"       </code></pre>
+        <br>
+       <h2>5. 少しハマった点</h2>
+       <p>Object Constructorの位置は少しハマりました。特に|を使ってデータをフィルタする時は、Object作成に使用する各データの共通項までにして、その後に{}を使うイメージですね(（)ここは完全に自分用の備忘録w)</p>
+       <p>例: filter|filter|{key1:.filter-a.filter-aa.data, key2:.filter-b.filter-bb.data}</p>
        <br>
        <h2>5. 感想</h2>
        <p>jqへの苦手意識は克服できました。今回、色々触ってみましたが実際に使う必要ができた時はChtGPTにコマンド作ってもらうのが早そうですね。ChatGPTを使いこなすのに必要な知識を整理できたので良い勉強でした。</p>

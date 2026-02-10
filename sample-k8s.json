@@ -1,0 +1,231 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "metadata": {
+        "name": "nginx-deployment-7d64c8f5d9-abc12",
+        "namespace": "production",
+        "creationTimestamp": "2026-02-10T08:30:15Z",
+        "labels": {
+          "app": "nginx",
+          "environment": "production"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "nginx",
+            "image": "nginx:1.21",
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "512Mi"
+              }
+            }
+          }
+        ],
+        "nodeName": "node-1"
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "nginx",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2026-02-10T08:30:20Z"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "api-server-6f8b9c7d5e-def34",
+        "namespace": "production",
+        "creationTimestamp": "2026-02-09T14:22:30Z",
+        "labels": {
+          "app": "api-server",
+          "environment": "production"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "api",
+            "image": "myapp/api:v2.1.0",
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi"
+              },
+              "limits": {
+                "cpu": "1000m",
+                "memory": "1Gi"
+              }
+            }
+          }
+        ],
+        "nodeName": "node-2"
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "api",
+            "ready": true,
+            "restartCount": 2,
+            "state": {
+              "running": {
+                "startedAt": "2026-02-09T15:10:45Z"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "redis-cache-5c9d8f6e4a-ghi56",
+        "namespace": "production",
+        "creationTimestamp": "2026-02-08T10:15:00Z",
+        "labels": {
+          "app": "redis",
+          "environment": "production"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "redis",
+            "image": "redis:7.0",
+            "resources": {
+              "requests": {
+                "cpu": "200m",
+                "memory": "512Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "1Gi"
+              }
+            }
+          }
+        ],
+        "nodeName": "node-1"
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "redis",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2026-02-08T10:15:10Z"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "worker-deployment-8e7f5d4c3b-jkl78",
+        "namespace": "production",
+        "creationTimestamp": "2026-02-07T16:45:22Z",
+        "labels": {
+          "app": "worker",
+          "environment": "production"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "worker",
+            "image": "myapp/worker:v1.5.2",
+            "resources": {
+              "requests": {
+                "cpu": "300m",
+                "memory": "384Mi"
+              },
+              "limits": {
+                "cpu": "800m",
+                "memory": "768Mi"
+              }
+            }
+          }
+        ],
+        "nodeName": "node-3"
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "worker",
+            "ready": true,
+            "restartCount": 5,
+            "state": {
+              "running": {
+                "startedAt": "2026-02-08T09:22:15Z"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "metadata": {
+        "name": "frontend-5a8c7d6e9f-mno90",
+        "namespace": "production",
+        "creationTimestamp": "2026-02-10T12:00:45Z",
+        "labels": {
+          "app": "frontend",
+          "environment": "production"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "frontend",
+            "image": "myapp/frontend:v3.0.1",
+            "resources": {
+              "requests": {
+                "cpu": "150m",
+                "memory": "192Mi"
+              },
+              "limits": {
+                "cpu": "600m",
+                "memory": "512Mi"
+              }
+            }
+          }
+        ],
+        "nodeName": "node-2"
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "frontend",
+            "ready": true,
+            "restartCount": 0,
+            "state": {
+              "running": {
+                "startedAt": "2026-02-10T12:01:00Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
