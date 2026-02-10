@@ -155,6 +155,8 @@ Diana</code></pre>
   ]
 }</code></pre>
         <p>以下のように書かないように気をつけてください。よくある間違いだそうです。自分もやりました。</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee":{"employee_id": .company.employees[].id, "employee_name": .company.employees[].name, "team": .company.employees[].team}}'</code></pre>
+        
         <br>
         <p>何がだめかというとこの書き方だと全ての組み合わせになってしまいます。以下、省略ver.ですが出力結果をお見せします。欲しいのは101, Alice, Aliceの所属チーム1(Platform)の組み合わせだけですが、他のメンバーの所属チームとの組み合わせまで作られてしまっています。</p>
         <pre><code>
