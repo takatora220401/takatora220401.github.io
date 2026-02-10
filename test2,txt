@@ -1,0 +1,101 @@
+{
+  "name": "Acme Cloud",
+  "founded": 2016,
+  "headquarters": "Tokyo",
+  "employees": [
+    {
+      "id": 101,
+      "name": "Alice",
+      "role": "Engineer",
+      "team": "Platform",
+      "salary": 85000,
+      "skills": [
+        "go",
+        "kubernetes",
+        "linux"
+      ],
+      "active": true
+    },
+    {
+      "id": 102,
+      "name": "Bob",
+      "role": "Engineer",
+      "team": "Frontend",
+      "salary": 78000,
+      "skills": [
+        "javascript",
+        "react",
+        "css"
+      ],
+      "active": true
+    },
+    {
+      "id": 103,
+      "name": "Charlie",
+      "role": "Manager",
+      "team": "Platform",
+      "salary": 98000,
+      "skills": [
+        "planning",
+        "communication"
+      ],
+      "active": false
+    },
+    {
+      "id": 104,
+      "name": "Diana",
+      "role": "Engineer",
+      "team": "Platform",
+      "salary": 91000,
+      "skills": [
+        "python",
+        "terraform"
+      ],
+      "active": true
+    }
+  ]
+}
+[
+  {
+    "name": "Orion",
+    "status": "active",
+    "budget": 1200000,
+    "members": [
+      101,
+      103,
+      104
+    ],
+    "tags": [
+      "cloud",
+      "infra"
+    ]
+  },
+  {
+    "name": "Apollo",
+    "status": "completed",
+    "budget": 600000,
+    "members": [
+      102
+    ],
+    "tags": [
+      "frontend"
+    ]
+  },
+  {
+    "name": "Hermes",
+    "status": "paused",
+    "budget": null,
+    "members": [],
+    "tags": []
+  }
+]
+{
+  "Tokyo": {
+    "opened": 2016,
+    "capacity": 120
+  },
+  "Osaka": {
+    "opened": 2019,
+    "capacity": 60
+  }
+}
