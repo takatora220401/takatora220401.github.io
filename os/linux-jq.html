@@ -11,9 +11,9 @@
 
     <!-- Header -->
     <header class="site-header">
-      <h1>Bash - 変数</h1>
+      <h1>Bash - jqコマンド</h1>
       <p class="tagline">
-        Last Updated: 2026-02-06
+        Last Updated: 2026-02-10
       </p>
     </header>
 
@@ -51,13 +51,15 @@
         </ul>
         <p>jsonのサンプルとしては、<a href="/os/linux-jq-sample.json">こちら</a>を使おうと思います。ちなみに、1つのLinuxコマンドのためだけに2つ以上の教材を使ったのは自分なりのこだわりです。どんなすごい人でも教え方の癖や知識の偏りがあるはずなので、バランスの取れた見方ができるように色んなソースから情報を取るようにしています。</p>
         <br>
+
         <h2>2. jq基礎</h2>
         <h3>2-1. 基本の基本</h3>
         <p>まずは構文です。</p>
         <pre><code>jq filter input_file または cat/echo | jq filter</code></pre>
         <p>例: </p>
-        <code><pre>cat linux-jq-sample.json |jq '.'         </code></pre>
+        <code><pre>cat linux-jq-sample.json |jq '.'</code></pre>
         <br>
+
         <h3>2-2. 深い階層のデータへのアクセス</h3>
         <p>DevOpsでの文脈だとオブジェクトに対してjqを使用することになると思うのでその前提で続けます。(<code>jq '.[]'</code>ではなく<code>jq '.'</code>となります)</p>
         <p>次のようにkeyを連結させるだけですね。ちなみに、下の例でいう.sukey.sub-subkeyはObject ID indexと呼ばれることもあるみたいです。</p>
@@ -75,6 +77,7 @@
   }
 }</code></pre>
         <br>
+
         <h3>2-3. -r オプション</h3>
         <p>文字列データを生出力したい時は<code>-r</code>オプションを使います。上記の動画内では""を取り除くというような言われ方をしていますが、手元で動かしてる感じjson形式ではなく生データとするといった方が正確な気がします。Manページでも次のように書いてますし。</p>
         <blockquote>--raw-output / -r: 
@@ -179,11 +182,11 @@ Diana</code></pre>
 }</code></pre>
       <br>
       <p>Arrayの特定のkey-valueを組み合わせて新しい形のObjectを作る時は、<code>一度の.[]で全要素を取得した後は|で処理</code>します。</p>
+       <h2>4. jq サブコマンド</h2>
+       <br>
+       <h2>5. 感想</h2>
+       <p>jqへの苦手意識は克服できました。今回、色々触ってみましたが実際に使う必要ができた時はChtGPTにコマンド作ってもらうのが早そうですね。ChatGPTを使いこなすのに必要な知識を整理できたので良い勉強でした。</p>
       </article>
-        <h2>4. jq サブコマンド</h2>
-        <br>
-        <h2>5. 感想</h2>
-        <p>jqへの苦手意識は克服できました。今回、色々触ってみましたが実際に使う必要ができた時はChtGPTにコマンド作ってもらうのが早そうですね。ChatGPTを使いこなすのに必要な知識を整理できたので良い勉強でした。</p>
     </main>
 
     <footer class="site-footer">
