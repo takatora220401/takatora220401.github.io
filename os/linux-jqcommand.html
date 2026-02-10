@@ -36,7 +36,7 @@
         <p>jqコマンドについて</p>
         <br>
         <h2>1. モチベーション&勉強方法</h2>
-        <p>新卒で入った会社でNSXというネットワーク仮想化製品が送信するSNMP Ttrapの一覧を取得するのにjqコマンドを使っているマニュアルがあったんですね。意味もよくわからずに使っていたのですが、ちゃんと理解したいと思っていたのでこれを機に学びます。というのは、私の個人的なモチベなわけですが一般的にjqコマンドを知っておくと良い理由はこんな感じでしょうか。</p>
+        <p>新卒で入った会社でNSXというネットワーク仮想化製品が送信するSNMP Ttrapの一覧を取得するのにjqコマンドを使っているマニュアルがあったんですね。意味がわからずとも使えてはいたのですが、ちゃんと理解したいと思っていたのでこれを機に学びます。というのは、私の個人的なモチベなわけですが一般的にjqコマンドを知っておくと良い理由はこんな感じでしょうか。</p>
         <ul>
           <li>jsonデータの編集に便利(例：オブジェクトの形を変更、データの追加・変更など)</li>
           <li>jsonデータをきれいに表示してくれる</li>
@@ -59,7 +59,7 @@
         <p>例: </p>
         <code><pre>cat linux-jq-sample.json |jq '.'</code></pre>
         <br>
-        
+
         <h3>2-2. 深い階層のデータへのアクセス</h3>
         <p>DevOpsでの文脈だとオブジェクトに対してjqを使用することになると思うのでその前提で続けます。(<code>jq '.[]'</code>ではなく<code>jq '.'</code>となります)</p>
         <p>次のようにkeyを連結させるだけですね。ちなみに、下の例でいう.sukey.sub-subkeyはObject ID indexと呼ばれることもあるみたいです。</p>
@@ -96,6 +96,35 @@ Diana</code></pre>
 "Charlie"
 "Diana"</code></pre>
         <br>
+        <h3>2-4. Array/Object Constractor</h3>
+        <h4>Array Constractor</h4>
+        <p>jq '<code>[Object ID index]</code>'で出力結果をArrayに変換することができます。</p>
+        <p>例を見てみましょう。</p>
+        <p>例: Array Constractorなしの場合</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '.company.employees[].name'
+"Alice"
+"Bob"
+"Charlie"
+"Diana"</code></pre>
+        <p>例: Array Constractorありの場合</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '[.company.employees[].name]'
+[
+  "Alice",
+  "Bob",
+  "Charlie",
+  "Diana"
+]</code></pre>
+        <h4>Object Constractor</h4>
+        <p>jq '<code>{"new_key", Object ID_index1}</code>'で出力結果をObjectに変換することができます。</p>
+        <pre><code>$ cat ./os/linux-jq-sample.json |jq '{"employee_name":[.company.employees[].name]}'
+{
+  "employee_name": [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "Diana"
+  ]
+}</code></pre>        
 
       </article>
     </main>
