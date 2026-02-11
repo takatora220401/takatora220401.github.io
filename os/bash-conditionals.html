@@ -41,7 +41,7 @@
         <p>ということで、今回は「環境変数に応じて異なるツールを呼び出す」というシナリオを想定してBashのConditionalsについてまとめていこうと思います。</p>
         <br>
         <p>そして、進め方としてはChatGPTに相談しつつ怪しいところは<a href="https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html">gnu.orgの3.2.5.2 Conditional Constructs</a>で確認し、また手元でも動作を確認するやり方でいこうと思います。</p>
-        
+        <br>
         <h2>2. test/ifの基本</h2>
         <h3>test</h3>
         <p>まずはtestコマンドからみていきましょう。<code>test</code>と<code>[ </code>の2通りの書き方があります。単なる書き方の違いです。後者をよりよくみる印象ですのでここでは後者で記載します。<code>"$name"</code>, <code>=</code>, <code>takatora</code>, <code>]</code>のいずれも[コマンドへの引数扱いですのでスペースが必要になる点には注意が必要です。</p>
