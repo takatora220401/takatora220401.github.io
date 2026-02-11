@@ -38,7 +38,7 @@
         <h2>1. BashのConditionalsを学ぶ意味</h2>
         <p>色々な言語やツールが充実するにつれ、Bashの出番は少なくなりつつあるのかもしれませんが、それでもBashには色々あるツールを繋ぐという大事な役目が残されています。実際に私が大学で初めてBashに触れた時も幾つかのpythonスクリプトをBashで繋ぐというような使い方だった気がします。(恥ずかしい話、管理が甘かったせいでそのプログラムはもう見れないのですが、、)ということで、BashのConditionalsについてまとめていこうと思います。</p>
         <br>
-        <p>そして、進め方としてはChatGPTに相談しつつ怪しいところは<a href="https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html">gnu.orgの3.2.5.2 Conditional Constructs</a>で確認し、また手元でも動作を確認するやり方でいこうと思います。</p>
+        <p>進め方としてはChatGPTに相談しつつ怪しいところは<a href="https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html">gnu.orgの3.2.5.2 Conditional Constructs</a>で確認し、また手元でも動作を確認するやり方でいこうと思います。</p>
         <br>
         <h2>2. test/ifの基本</h2>
         <h3>test</h3>
@@ -95,7 +95,7 @@ fi</code></pre>
             <li>[ $variable_name = xxxxx ]</li>
             <li>[ $variable_name -gt yyy ]</li>
         </ul>
-        <p>また、環境に応じたロジックの制御という意味でいうと、<code>if command -v git >/dev/null 2>&1;</code>のような書き方も使えそうですね。</p>
+        <p>また、DevOpsの文脈では<code>if command -v git >/dev/null 2>&1;</code>のような使い方も便利そうですね。</p>
       </article>
     </main>
 
