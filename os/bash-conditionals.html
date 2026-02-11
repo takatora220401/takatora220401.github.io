@@ -44,7 +44,6 @@
         
         <h2>2. test/ifの基本</h2>
         <h3>test</h3>
-        <br>
         <p>まずはtestコマンドからみていきましょう。<code>test</code>と<code>[ </code>の2通りの書き方があります。単なる書き方の違いです。後者をよりよくみる印象ですのでここでは後者で記載します。<code>"$name"</code>, <code>=</code>, <code>takatora</code>, <code>]</code>のいずれも[コマンドへの引数扱いですのでスペースが必要になる点には注意が必要です。</p>
         <pre><code>test "$name" = takatora <-----同じ-----> [ "$name" = takatora ] </code></pre>
         <br>
@@ -90,6 +89,14 @@ fi</code></pre>
 else
   echo "git not found"
 fi</code></pre>
+        <h2>3. 感想</h2>
+        <p>Bashにおけるconditionalsをまとめてみました。「環境変数に応じて異なるツールを呼び出す」というシナリオを想定した場合、次のようなテスト結果に基づいてロジックを作るとよさそうですね</p>
+        <ul>
+            <li>[ -z $variable_name ]</li>
+            <li>[ $variable_name = xxxxx ]</li>
+            <li>[ $variable_name -gt yyy ]</li>
+        </ul>
+        <p>また、環境に応じてという意味でいうと、<code>if command -v git >/dev/null 2>&1;</code>のような書き方も使えそうですね。</p>
       </article>
     </main>
 
