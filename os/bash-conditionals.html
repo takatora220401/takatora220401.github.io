@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <header class="site-header">
-      <h1>Bash - </h1>                                                          <!-- Topic Name -->
+      <h1>Bash - Conditionals(if/test)</h1>                                     <!-- Topic Name -->
       <p class="tagline">
         Last Updated: 2026-02-11                                                <!-- Updated date -->
       </p>
@@ -40,7 +40,13 @@
         <br>
         <p>ということで、今回は「環境変数に応じて異なるツールを呼び出す」というシナリオを想定してBashのConditionalsについてまとめていこうと思います。</p>
         <br>
-        <h2>2. </h2>
+        <h2>2. if/testの基本</h2>
+        <p>今回の進め方としては、ChatGPTに相談しつつ怪しいところは<a href="https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html">gnu.orgの3.2.5.2 Conditional Constructs</a>で確認し、また手元でも動作を確認するやり方でいこうと思います。</p>
+        <br>
+        <p>まずはtestコマンドからみていきましょう。<code>test</code>と<code>[ ]</code>の2通りの書き方をすることができます。後者のほうがよくみる印象ですので前者は簡潔にして、後者を中心に記載します。</p>
+        <pre><code>test </code></pre>
+        <p>まずは基本の構文から。ポイントはifはexit statusが0の時に処理を実行することですね。なので、2つ目みたいな構文も取れてしまいます。</p>
+        <pre><code>if </code></pre>
       </article>
     </main>
 
