@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <header class="site-header">
-      <h1>Bash - Conditionals(if/test)</h1>                                     <!-- Topic Name -->
+      <h1>Bash - Conditionals(test/if)</h1>                                     <!-- Topic Name -->
       <p class="tagline">
         Last Updated: 2026-02-11                                                <!-- Updated date -->
       </p>
@@ -33,20 +33,63 @@
     <!-- Article Content -->
     <main class="content">
       <article class="info-card">
-        <p>BashのConditionals(if/test)について</p>                                <!-- Title -->
+        <p>BashのConditionals(test/if)について</p>                                <!-- Title -->
         <br>
         <h2>1. BashのConditionalsを学ぶ意味</h2>
         <p>色々な言語やツールが充実するにつれ、Bashの出番は少なくなりつつあるのかもしれませんが、それでもBashには色々あるツールを繋ぐという大事な役目が残されています。実際に私が大学で初めてBashに触れた時も幾つかのpythonスクリプトをBashで繋ぐというような使い方だった気がします。(恥ずかしい話、管理が甘かったせいでそのプログラムはもう見れないのですが、、)</p>
         <br>
         <p>ということで、今回は「環境変数に応じて異なるツールを呼び出す」というシナリオを想定してBashのConditionalsについてまとめていこうと思います。</p>
         <br>
-        <h2>2. if/testの基本</h2>
-        <p>今回の進め方としては、ChatGPTに相談しつつ怪しいところは<a href="https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html">gnu.orgの3.2.5.2 Conditional Constructs</a>で確認し、また手元でも動作を確認するやり方でいこうと思います。</p>
+        <p>そして、進め方としてはChatGPTに相談しつつ怪しいところは<a href="https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html">gnu.orgの3.2.5.2 Conditional Constructs</a>で確認し、また手元でも動作を確認するやり方でいこうと思います。</p>
+        
+        <h2>2. test/ifの基本</h2>
+        <h3>test</h3>
         <br>
-        <p>まずはtestコマンドからみていきましょう。<code>test</code>と<code>[ ]</code>の2通りの書き方をすることができます。後者のほうがよくみる印象ですので前者は簡潔にして、後者を中心に記載します。</p>
-        <pre><code>test </code></pre>
-        <p>まずは基本の構文から。ポイントはifはexit statusが0の時に処理を実行することですね。なので、2つ目みたいな構文も取れてしまいます。</p>
-        <pre><code>if </code></pre>
+        <p>まずはtestコマンドからみていきましょう。<code>test</code>と<code>[ </code>の2通りの書き方があります。単なる書き方の違いです。後者をよりよくみる印象ですのでここでは後者で記載します。<code>"$name"</code>, <code>=</code>, <code>takatora</code>, <code>]</code>のいずれも[コマンドへの引数扱いですのでスペースが必要になる点には注意が必要です。</p>
+        <pre><code>test "$name" = takatora <-----同じ-----> [ "$name" = takatora ] </code></pre>
+        <br>
+        <p>また、[[ stringはこっち ]]/(( numberはこっち ))というBashのキーワードを用いてテストする方がいいとChatgptに言われたのですがどうなんでしょうね、、少なくともUdemy上の有識者は[コマンドを使っていたので[を使い続けます。</p>
+        <p>次に、[の中身について上記に加えて以下のような書き方をすることができます。</p>
+        <ul>
+            <li><strong>string1 != string2</strong> - string1 ≠ string2ならばstatus code=0</li>
+            <li><strong>-e file</strong> - ファイルが存在するならばstatus code=0</li>
+            <li><strong>-d file</strong> - ディレクトリが存在するならばstatus code=0</li>
+            <li><strong>-f file</strong> - 通常のファイルが存在するならばstatus code=0</li>
+            <li><strong>-z $variable_name</strong> - 空(→変数が存在しない)ならばstatus code=0</li>
+            <li><strong>num1 -eq num2</strong> - num1=num2ならばstatus code=0</li>
+            <li><strong>num1 -gt num2</strong> - num1>num2ならばstatus code=0</li>
+            <li><strong>[ ! expression ]</strong> - expressionのstatus codeを反転させる(0↔non-0)</li>
+        </ul>
+        <p>例：</p>
+        <pre><code>$ name=takatora && [ "$name" = takatora ] ; echo $?
+0
+$ name=takatora && [ ! "$name" = takatora ] ; echo $?
+1
+$ name=takatora && [ -z ${name} ] ; echo $?
+1
+$ [ 10 -eq 010 ] ; echo $? #numberとしての比較
+0
+$ [ 10 = 010 ] ; echo $?   #stringとしての比較
+1</code></pre>
+        <br>
+        <h3>if</h3>
+        <p>ifは条件文のstatus codeが0の場合に処理を実行します。そのため、2つ目のような書き方をすることが可能です。</p>
+        <br>
+        <p>構文その1:</p>
+        <p>なお、こちらの構文では [ expression1 ] &&(または||) [ expression2 ]のように 複合条件を作ることもできます。</p>
+        <pre><code>if [ $name1 = $name2 ];  then
+  echo "name1 is the same as  name2"
+else 
+  echo "name1 is different from name2"
+fi</code></pre>
+        <br>
+        <p>構文その2:</p>
+        <p>普通にコマンドを実行する書き方です。以下の例ではgitがインストールされている場合はcommandコマンドのstatus codeが0になります。</p>
+        <pre><code>if command -v git >/dev/null 2>&1; then
+  echo "git exists"
+else
+  echo "git not found"
+fi</code></pre>
       </article>
     </main>
 
