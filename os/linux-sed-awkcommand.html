@@ -61,16 +61,12 @@
         </ul>
         <br>
         <h3>1-3. sedの動作確認</h3>
-        <p>シナリオ1-機密情報のマスク: 次のファイルのDBパスワードにマスクをかけたいと思います。</p>
+        <p>例) s/ - 次のファイルのDBパスワードにマスクをかけます。</p>
         <pre><code>$ cat ./os/linux-sed-.varfile.tfvars 
 # Application Configuration
 app_name = "myapp"
 app_env  = "development"
 app_debug = true
-
-# Server
-host = "0.0.0.0"
-port = 3000
 
 # Database
 db_host = "localhost"
@@ -85,15 +81,30 @@ app_name = "myapp"
 app_env  = "development"
 app_debug = true
 
-# Server
-host = "0.0.0.0"
-port = 3000
-
 # Database
 db_host = "localhost"
 db_port = 5432
 db_user = "admin"
 db_pass = xxxx</code></pre>
+        <br>
+        <p>例) a/ - 次のファイルのDBパスワードにdb_nameを足します。</p>
+        <pre><code>$ sed '/# Database/a db_name = "myappdb"' ./os/linux-sed-masked-varfile.tfvars
+# Application Configuration
+app_name = "myapp"
+app_env  = "development"
+app_debug = true
+
+# Database
+db_name = "myappdb"
+db_host = "localhost"
+db_port = 5432
+db_user = "admin"
+db_pass = xxxx</code></pre>
+        <h2>2. awk</h2>
+        <h3>2-1. awkのメリット</h3>
+        <h3>2-2. awsの基本</h3>
+        <h3>2-3. 動作確認</h3>
+        
       </article>
     </main>
 
