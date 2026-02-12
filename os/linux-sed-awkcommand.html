@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>OS | DevOpsエンジニアの備忘録</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="site-container">
+
+    <!-- Header -->
+    <header class="site-header">
+      <h1>Bash - sed/aws</h1>                                                          <!-- Topic Name -->
+      <p class="tagline">
+        Last Updated: 2026-02-12                                                <!-- Updated date -->
+      </p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <a href="/index.html">HOME</a>
+      <a href="/cloud/cloud-index.html">Cloud</a>
+      <a href="/k8s/k8s-index.html" >Kubernetes</a>
+      <a href="/auto/auto-index.html">Automation</a>
+      <a href="/os/os-index.html" class="active">OS(Linux/Windows etc.)</a>     <!-- Tab Activation -->
+      <a href="/db/db-index.html">DB</a>
+      <a href="/network/network-index.html">Networking</a>
+      <a href="/misc/misc-index.html">Misc</a>
+      <a href="/about.html">About Me</a>
+    </nav>
+
+    <!-- Article Content -->
+    <main class="content">
+      <article class="info-card">
+        <p>ファイルの編集に便利なsed/awkについてまとめます。</p>                                                <!-- Title -->
+        <br>
+        <h2>1. sed</h2>
+        <h3>1-1. sedのメリット</h3>
+        <p>ファイルの中の特定の文字列を置換・削除したり、文字列を追加したりするコマンドですが、構成ファイルの編集や機密情報のマスクに便利です。</p>
+        <br>
+        <h3>1-2. sedの基本</h3>
+        <p>構文: </p>
+        <pre><code>sed [オプション] 'スクリプト' ファイル
+例) sed -E -i.buckup 's/pattern/replacement' file1
+        </code></pre>
+        <ul>
+            <li>頻出オプション1: -i(in-place)でファイルを直接編集します。また、-i.backupとすることでファイルの編集前にバックアップを取得します。</li>
+            <li>頻出オプション2: -EでERE(Extended Regex)が使えます。</li>
+            <li>スクリプトが's/pattern/replacement/'の場合、文字列patternを文字列replacementで置換します。</li>
+            <li>スクリプトが'/pattern/a string'の場合、patternの次の行にstringが追加される</li>
+            <li>スクリプトが'/pattern/i string'の場合、patternの前の行にstringが追加される</li>
+            <li>スクリプトが置換の場合、sに続く文字が区切り文字になる。/の他には|や#が使われる。</li>
+            <li>置換時&はマッチした文字列全体、\1, \2はキャプチャグループを指す。</li>
+            <li>インデントはハードコードでも良いが[[:space:]]とキャプチャグループを組み合わせて使う方法もある。</li>            
+        </ul>
+        <p>参考: </p>
+        <ul>
+            <li><a href="https://www.gnu.org/software/sed/manual/html_node/Command_002dLine-Options.html">2.2 Command-Line Options</a></li>
+            <li><a href="https://www.gnu.org/software/findutils/manual/html_node/find_html/posix_002dextended-regular-expression-syntax.html">8.5.10 ‘posix-extended’ regular expression syntax</a></li>
+        </ul>
+        <br>
+        <h3>1-3. sedの動作確認</h3>
+        <p>シナリオ1-機密情報のマスク: 次のファイルのDBパスワードにマスクをかけたいと思います。</p>
+        <pre><code>$ cat ./os/linux-sed-.varfile.tfvars 
+# Application Configuration
+app_name = "myapp"
+app_env  = "development"
+app_debug = true
+
+# Server
+host = "0.0.0.0"
+port = 3000
+
+# Database
+db_host = "localhost"
+db_port = 5432
+db_user = "admin"
+db_pass = "secret"</code></pre>
+        <br>
+        <pre><code>$ sed -E 's/^(db_pass = )(.*)/\1xxxx/' ./os/linux-sed-.varfile.tfvars > ./os/linux-sed-masked-varfile.tfvars
+$ cat ./os/linux-sed-masked-varfile.tfvars 
+# Application Configuration
+app_name = "myapp"
+app_env  = "development"
+app_debug = true
+
+# Server
+host = "0.0.0.0"
+port = 3000
+
+# Database
+db_host = "localhost"
+db_port = 5432
+db_user = "admin"
+db_pass = xxxx</code></pre>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 takatora</p>
+    </footer>
+  </div>
+</body>
+</html>
