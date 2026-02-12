@@ -114,17 +114,50 @@ db_pass = "secret"</code></pre>
             <li>ENDは様々な処理をした後にprintすることを示します。</li>
             <li>filterにはregexを含む文字列の比較、数値比較などが可能です。</li>
             <li>$1 ~ /pattern/は1列目の値がpatternを含む行を抽出</li>
-            <li>$1 == /pattern/は1列目の値がpatternと完全に一致する行を抽出</li>
+            <li>$1 == "pattern"は1列目の値がpatternと完全に一致する行を抽出</li>
             <li>KBなどの単位が含まれる場合、+0とすると単位を除去できます。</li>
             <li>-Fにて元データのField Separatorを指定できます。</li>
             <li>BEGIN { OFS="," }のようにOFSにて出力時のField Separatorも指定できます。</li>
             <li>{ count[$1]++ }にて1列目の値の出現回数をカウントできます。</li>
             <li>{ sum[$1] += $2 }にて1列目が特定の値のときの2列目の値の合計値を計算できます。</li>
             <li>END { for (k in count) print k, count[k] }で上記でカウントした結果を出力できます。</li>
+            <li>awkはforだけでなく、if文も備えています。</li>
         </ul>
         <br>
         <h3>2-3. 動作確認</h3>
-
+        <p>サンプルデータファイルは<a href="/os/linux-awk-sample-data.txt">こちら</a>を使います。</p>
+        <p>例) ERRORを含む行の$1を出力 ※$0は行全体を意味します</p>
+        <pre><code>$ awk '$0 ~ /ERROR/ { print $1 }' linux-awk-sample-data.txt 
+192.168.1.10
+10.0.0.2
+10.0.0.1</code></pre>
+        <p>例) Use%が80%以上のFilesystemを抽出</p>
+        <pre><code>$ awk 'NR>1 && $5+0 > 80 { print $1, $5 }' linux-awk-sample-data.txt 
+/dev/sda1 85%
+/dev/sdb1 90%</code></pre>
+        <p>例) サーバログをCSVに変換</p>
+        <pre><code>$ awk 'BEGIN { OFS="," } $1 ~ /^[1-9]{1,3}.*/ { print $1, $2, $3 }' linux-awk-sample-data.txt 
+192.168.1.10,ERROR,Disk
+10.0.0.1,INFO,System
+192.168.1.11,WARNING,CPU
+10.0.0.2,ERROR,Network
+192.168.1.12,INFO,Backup
+192.168.1.10,WARNING,Memory
+10.0.0.1,ERROR,Disk</code></pre>
+        <p>例) bobの出現回数をカウント</p>
+        <pre><code>$ awk '$1 =="bob" { count[$1]++ } END { for (k in count) print k, count[k] }' linux-awk-sample-data.txt 
+bob 3</code></pre>
+        <p>例)bobとaliceのスコアの合計値</p>
+        <pre><code>$ awk '$1=="bob"||$1=="alice" { sum1[$1] += $2; sum2[$1] += $3 } END { for (c in sum1) print c,sum1[c],sum2[c]}' linux-awk-sample-data.txt 
+bob 6 14
+alice 15 3</code></pre>
+        <h2>3. 感想</h2>
+        <p>awkの最後の例を試してる時におかしなハマり方をしてしまいました。</p>
+        <pre><code>$ awk '$1=="bob"||$1=="alice" { sum1[$1] += $2; sum2[$1] += $3 } END { for (c in sum1) print $1,sum1[c],sum2[c]
+}' linux-awk-sample-data.txt 
+/dev/sdc1 6 14
+/dev/sdc1 15 33</code></pre>
+        <p>END{}内のforにてcと書くべきところが$1担っていたことが原因でした。我ながら少し笑ってしまいました。</p>
       </article>
     </main>
 
