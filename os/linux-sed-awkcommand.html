@@ -104,7 +104,25 @@ db_pass = "secret"</code></pre>
         <br>
         <h2>2. awk</h2>
         <h3>2-1. awkのメリット</h3>
+        <p>awkのメリットはテキストデータの構造を欲しい形に作り直すことができる、また元データに基づいて簡単な計算をして必要なデータを作ることができることにあると思います。例えば、CLIの出力結果やログの整形に便利そうですね。</p>
+        <br>
         <h3>2-2. awsの基本</h3>
+        <h4>構文</h4>
+        <pre><code>awk 'filter { some processing } END { final actions }' file
+例: awk '$5+0 > 80 { print $1, $5 }' file.txt #5列目が80より大きい場合は1列目と5列目を表示</code></pre>
+        <ul>
+            <li>ENDは様々な処理をした後にprintすることを示します。</li>
+            <li>filterにはregexを含む文字列の比較、数値比較などが可能です。</li>
+            <li>$1 ~ /pattern/は1列目の値がpatternを含む行を抽出</li>
+            <li>$1 == /pattern/は1列目の値がpatternと完全に一致する行を抽出</li>
+            <li>KBなどの単位が含まれる場合、+0とすると単位を除去できます。</li>
+            <li>-Fにて元データのField Separatorを指定できます。</li>
+            <li>BEGIN { OFS="," }のようにOFSにて出力時のField Separatorも指定できます。</li>
+            <li>{ count[$1]++ }にて1列目の値の出現回数をカウントできます。</li>
+            <li>{ sum[$1] += $2 }にて1列目が特定の値のときの2列目の値の合計値を計算できます。</li>
+            <li>END { for (k in count) print k, count[k] }で上記でカウントした結果を出力できます。</li>
+        </ul>
+        <br>
         <h3>2-3. 動作確認</h3>
 
       </article>
