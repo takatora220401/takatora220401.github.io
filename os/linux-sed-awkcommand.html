@@ -151,6 +151,7 @@ bob 3</code></pre>
         <pre><code>$ awk '$1=="bob"||$1=="alice" { sum1[$1] += $2; sum2[$1] += $3 } END { for (c in sum1) print c,sum1[c],sum2[c]}' linux-awk-sample-data.txt 
 bob 6 14
 alice 15 3</code></pre>
+        <br>
         <h2>3. 感想</h2>
         <p>awkの最後の例を試してる時におかしなハマり方をしてしまいました。</p>
         <pre><code>$ awk '$1=="bob"||$1=="alice" { sum1[$1] += $2; sum2[$1] += $3 } END { for (c in sum1) print $1,sum1[c],sum2[c]
