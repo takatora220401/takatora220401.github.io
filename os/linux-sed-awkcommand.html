@@ -42,7 +42,8 @@
         <h3>1-2. sedの基本</h3>
         <p>構文: </p>
         <pre><code>sed [オプション] 'スクリプト' ファイル
-例) sed -E -i.buckup 's/pattern/replacement' file1        </code></pre>
+例) sed -E -i.buckup 's/pattern/replacement' file1</code></pre>
+        <p>重要ポイント:</p>
         <ul>
             <li>頻出オプション1: -i(in-place)でファイルを直接編集します。また、-i.backupとすることでファイルの編集前にバックアップを取得します。</li>
             <li>頻出オプション2: -EでERE(Extended Regex)が使えます。</li>
@@ -110,6 +111,7 @@ db_pass = "secret"</code></pre>
         <h4>構文</h4>
         <pre><code>awk 'filter { some processing } END { final actions }' file
 例: awk '$5+0 > 80 { print $1, $5 }' file.txt #5列目が80より大きい場合は1列目と5列目を表示</code></pre>
+        <p>重要ポイント:</p>
         <ul>
             <li>ENDは様々な処理をした後にprintすることを示します。</li>
             <li>filterにはregexを含む文字列の比較、数値比較などが可能です。</li>
