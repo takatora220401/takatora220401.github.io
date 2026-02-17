@@ -81,7 +81,8 @@ kubernetes-bootcamp   1/1     1            1           49m</code></pre>
         <br>
         <h3>3. 作成したAPPへの接続</h3>
         <p>「SVCを作成しないとAPPに接続できないでしょ」と思っていたのですが、プロキシを使って接続確認ができるみたいですね。知らなかったので、ついでに<code>kubectl proxy</code>について調べておきました。既にご存知、または興味のない場合はスキップしてください。</p>
-        <h4>kubectl proxyの動作</h4>
+        <br>
+        <h4>Side Note: kubectl proxyの動作</h4>
         <p>kubectl proxy -hは分かりにくいので、<a href="https://qiita.com/toshihirock/items/7144726b22d0685eb931">[小ネタ]kubectl proxy を使って API サーバーに curl でアクセスしてみる</a>というQiita記事を参照。</p>
         <blockquote>kubectl を使ってリクエストする場合、~./kube/config などを使って接続先への認証情報の設定を行って HTTP リクエストしている認識です。curl などで実行する場合、認証情報をすればリクエスト出来る気もしますが面倒そうなので kubectl proxy を使ってプロキシさせて認証情報を設定するようにします。</blockquote>
         <p>Geminiも同様の回答をくれました。~./kube/configを使ってAPIサーバへの認証の手間を省いてくれるコマンドという訳ですね。</p>
