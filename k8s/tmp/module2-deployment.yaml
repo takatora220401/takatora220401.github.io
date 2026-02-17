@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kubernetes-bootcamp
+  name: kubernetes-bootcamp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubernetes-bootcamp
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: kubernetes-bootcamp
+    spec:
+      containers:
+      - image: registry.k8s.io/minikube/kubernetes-bootcamp:v1
+        name: kubernetes-bootcamp
+        resources: {}
+status: {}

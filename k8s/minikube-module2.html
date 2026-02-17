@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>OS | DevOpsエンジニアの備忘録</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="site-container">
+
+    <!-- Header -->
+    <header class="site-header">
+      <h1>Minikube -tutorial</h1>                                                          <!-- Topic Name -->
+      <p class="tagline">
+        Last Updated: 2026-02-17                                                <!-- Updated date -->
+      </p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <a href="/index.html">HOME</a>
+      <a href="/cloud/cloud-index.html">Cloud</a>
+      <a href="/k8s/k8s-index.html" >Kubernetes</a>
+      <a href="/auto/auto-index.html">Automation</a>
+      <a href="/os/os-index.html" class="active">OS(Linux/Windows etc.)</a>     <!-- Tab Activation -->
+      <a href="/db/db-index.html">DB</a>
+      <a href="/network/network-index.html">Networking</a>
+      <a href="/misc/misc-index.html">Misc</a>
+      <a href="/about.html">About Me</a>
+    </nav>
+
+    <!-- Article Content -->
+    <main class="content">
+      <article class="info-card">
+        <p>Minikube -tutorialのModule2について記録を残します</p>                                                <!-- Title -->
+        <br>
+        <h2>1. 全体の流れ</h2>
+        <p>Module2の内容としては、ほぼkubectl createでデプロイメントを作成するだけです。でも、+αで幾つか気になった部分の調査結果を補足として残します。</p>
+        <br>
+        <h2>2. 実際にやってみる</h2>
+        <h3>デプロイメントの払い出し</h3>
+        <p>チュートリアルだと以下のコマンド一発で実施してますが、それだと中身がわかりにくいので<code>dry-run=client</code>にして、Yamlの中身を残そうと思います。</p>
+        <br>
+        <p>チュートリアル(そのまま)</p>
+        <pre><code>kubectl create deployment kubernetes-bootcamp --image=registry.k8s.io/minikube/kubernetes-bootcamp:v1</code></pre>
+        <p>変更後(dry-run=client, -o yaml)</p>
+        <pre><code>kubectl create deployment kubernetes-bootcamp --image=registry.k8s.io/minikube/kubernetes-bootcamp:v1 --dry-run=client -o yaml > kubernetes-bootcamp-deployment.yaml
+$ cat kubernetes-bootcamp-deployment.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kubernetes-bootcamp
+  name: kubernetes-bootcamp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubernetes-bootcamp
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: kubernetes-bootcamp
+    spec:
+      containers:
+      - image: registry.k8s.io/minikube/kubernetes-bootcamp:v1
+        name: kubernetes-bootcamp
+        resources: {}
+status: {}        </code></pre>
+        <br>
+        <p>このYamlを適用します。※[備忘録]最初-fフラグが必要なことを忘れて「あれ?」となりました。</p>
+        <pre><code>$ kubectl apply -f kubernetes-bootcamp-deployment.yaml
+deployment.apps/kubernetes-bootcamp created        </code></pre>
+        <br>
+        <p>念のため確認。。。いい感じに作成されてますね。</p>
+        <pre><code>$ kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   1/1     1            1           49m</code></pre>
+        <br>
+        <h3>3. 作成したAPPへの接続</h3>
+        <p>「SVCを作成しないとAPPに接続できないでしょ」と想っていたのですが、プロキシを使って接続確認ができるみたいですね。知らなかったので、ついでに<code>kubectl proxy</code>について調べておきました。既にご存知、または興味のない場合はスキップしてください。</p>
+        <h4>kubectl proxyの動作</h4>
+        <p></p>
+        <br>
+        <p>本題に戻りまして、手順通り別のターミナルを開いて以下を実行します。最初のメッセージ部分は動作に影響がないので割愛します。</p>
+        <pre><code>$ kubectl proxy
+Starting to serve on 127.0.0.1:8001
+</code></pre>
+        <br>
+        <p>そして、エンドポイントを指定するために環境変数を設定します。</p>
+        <pre><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $POD_NAME</code></pre>
+        <br>
+        <p>ただし、go-templateはよくわからないので、今回はjqを使って処理します。</p>
+        <p>なお、コマンド置換やjqを忘れたという場合は、次の記事を確認してください。</p>
+        <ul>
+            <li><a href="/os/bash-shell-expansion.html">Shell Expansion</a></li>
+            <li><a href="/os/linux-jqcommand.html"></a>jq</li>
+        </ul>
+        <pre><code>$ POD_NAME=$(kubectl get pods -o json|jq -r '.items[].metadata.name')
+$ echo $POD_NAME
+kubernetes-bootcamp-7478b8f8c7-2mg6k        </code></pre>
+        <p>それでは、curlコマンドで接続確認です。セキュリティ的によろしくない内容が出ないように出力結果はほぼ割愛します。</p>
+        <pre><code>$ curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "kubernetes-bootcamp-7478b8f8c7-2mg6k",
+    "generateName": "kubernetes-bootcamp-7478b8f8c7-",
+    "namespace": "default",
+    "uid": "3ebf7642-1bd2-4901-8a6f-928027f51210",
+    "resourceVersion": "3181",
+    "generation": 1,
+...</code></pre>
+        <br>
+        <h2>3. 感想</h2>
+        <p>デプロイメントの払い出しとその確認だけなので内容としては簡単なのかなぁというところですかね。とはいえ、kubectl applyの-fを思い出せたことやkubectl proxyについて学べたことは良かったなぁと思います。</p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 takatora</p>
+    </footer>
+  </div>
+</body>
+</html>
