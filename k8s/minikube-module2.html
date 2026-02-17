@@ -97,7 +97,7 @@ echo Name of the Pod: $POD_NAME</code></pre>
         <p>なお、コマンド置換やjqを忘れたという場合は、次の記事を確認してください。</p>
         <ul>
             <li><a href="/os/bash-shell-expansion.html">Shell Expansion</a></li>
-            <li><a href="/os/linux-jqcommand.html"></a>jq</li>
+            <li><a href="/os/linux-jqcommand.html">jq</a></li>
         </ul>
         <pre><code>$ POD_NAME=$(kubectl get pods -o json|jq -r '.items[].metadata.name')
 $ echo $POD_NAME
