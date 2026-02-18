@@ -70,7 +70,7 @@ spec:
         resources: {}
 status: {}        </code></pre>
         <br>
-        <p>このYamlを適用します。※[備忘録] 最初<code>-fフラグ</code>が必要なことを忘れて「あれ?」となりました。</p>
+        <p>このYamlを適用します。※[備忘録] <code>-fフラグ</code>が必要なことを忘れて「あれ?」となりました。</p>
         <pre><code>$ kubectl apply -f kubernetes-bootcamp-deployment.yaml
 deployment.apps/kubernetes-bootcamp created        </code></pre>
         <br>
@@ -80,7 +80,7 @@ NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
 kubernetes-bootcamp   1/1     1            1           49m</code></pre>
         <br>
         <h3>3. 作成したAPPへの接続</h3>
-        <p>「SVCを作成しないとAPPに接続できないでしょ」と思っていたのですが、プロキシを使って接続確認ができるみたいですね。知らなかったので、ついでに<code>kubectl proxy</code>について調べておきました。既にご存知、または興味のない場合はスキップしてください。</p>
+        <p>「SVCを作成しないとAPPに接続できないでしょ」と思っていたのですが、プロキシを使って存在の確認くらいはできるみたいですね。知らなかったので<code>kubectl proxy</code>について簡単に調べておきました。</p>
         <br>
         <h4>Side Note: kubectl proxyの動作</h4>
         <p>kubectl proxy -hは分かりにくいので、<a href="https://qiita.com/toshihirock/items/7144726b22d0685eb931">[小ネタ]kubectl proxy を使って API サーバーに curl でアクセスしてみる</a>というQiita記事を参照。</p>
@@ -92,16 +92,17 @@ kubernetes-bootcamp   1/1     1            1           49m</code></pre>
 Starting to serve on 127.0.0.1:8001
 </code></pre>
         <br>
-        <p>そして、エンドポイントを指定するために環境変数を設定します。</p>
+        <p>そして、エンドポイントを指定するために環境変数を設定します。go-templateはよくわからないので、今回はjqを使って処理します。(go-templateもいつかの宿題)</p>
+        <p>go-template ver.</p>
         <pre><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
 echo Name of the Pod: $POD_NAME</code></pre>
         <br>
-        <p>ただし、go-templateはよくわからないので、今回はjqを使って処理します。</p>
         <p>なお、コマンド置換やjqを忘れたという場合は、次の記事を確認してください。</p>
         <ul>
             <li><a href="/os/bash-shell-expansion.html">Shell Expansion</a></li>
             <li><a href="/os/linux-jqcommand.html">jq</a></li>
         </ul>
+        <p>jq ver.</p>
         <pre><code>$ POD_NAME=$(kubectl get pods -o json|jq -r '.items[].metadata.name')
 $ echo $POD_NAME
 kubernetes-bootcamp-7478b8f8c7-2mg6k        </code></pre>
