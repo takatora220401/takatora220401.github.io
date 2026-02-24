@@ -37,7 +37,19 @@
         <p>新卒で入った会社でネットワーク製品を触ることが多かったため、ネットワークについては少々興味があります。そこでKuberneteの重要コンポーネントの1つであるKube-Proxyについてもまとめておきたいと思いました。</p>
         <br>
         <h2>2. Kube-Proxyとは - 基本情報</h2>
-        <p></p>
+        <p>Kube-ProxyはKubernetesにおいてAPI-serverから取得した構成情報を各ノードが理解できる形式に書き換えるベテラン翻訳家です。実績が豊富なのでベテランと呼びました。</p>
+        <br>
+        <p>実体としてはDaemonsetとしてデプロイされるエージェントになります。そして、具体的にはAPI serverから取得した情報をiptablesというNATやFirewallのためのカーネルサブシステムに組み込まれるモジュールのルールに変換するイメージです。</p>
+        <br>
+        <p>イメージと曖昧にしたのはiptablesモード以外にもIPVS(廃止予定)モードとnftablesモードがあるからです。自分が最初に勉強した時は<a href="https://docs.aws.amazon.com/eks/latest/best-practices/ipvs.html">パフォーマンスを求めるならIPVSモードという感じだった</a>のですが、いつの間にか<a hrerf="https://kubernetes.io/docs/reference/networking/virtual-ips/">廃止予定</a>になっていました。公式ドキュメントにも今後はパフォーマンスを求めるならnftablesを使ってほしいと云う記載があります。ただし、比較的新しいからCNIとの互換性には注意ともあります。</p>
+        <blockquote>The nftables API is the successor to the iptables API and is designed to provide better performance and scalability than iptables. The nftables proxy mode is able to process changes to service endpoints faster and more efficiently than the iptables mode, and is also able to more efficiently process packets in the kernel (though this only becomes noticeable in clusters with tens of thousands of services). As of Kubernetes 1.35, the nftables mode is still relatively new, and may not be compatible with all network plugins; consult the documentation for your network plugin. </blockquote>
+        <br>
+        <p>また、実際のデータ処理がどうなっているかといいますと、iptablesモードでもnftablesモードでもルールにヒットしたパケットは<a href="https://kubernetes.io/docs/reference/networking/virtual-ips/#proxy-mode-iptables">ランダムに送信先Podが選択される</a>みたいです。</p>
+        <h2>3. iptablesルールの確認</h2>
+        <p>工事中</p>
+        <h2>4. Kube-Proxyの将来</h2>
+        <p>eBPFベースのCiliumというCNIではKube-Proxyは使いません。CiliumではeBPF技術によりLinuxカーネルに直接転送ルールやNetworkポリシーを書き込むことができるためパフォーマンス的に非常に優れているとされています。また、パフォーマンスに優れるだけでなくHabbleというコンポーネントを用いるとオブザーバビリティツールとしても活用できます。<a href="https://www.newsme.jp/itnews/cisco-to-acquire-isovalent-for-open-source-cloud-native-networking-and-security/">ネットの記事</a>ですが次のような記載も複数のソースで見つかりました。実績としても申し分ないです</p>
+        <blockquote>Ciliumは実際にクラウドネイティブネットワーキングに使用されており、Google Kubernetes Engine、Google Anthos、Amazon EKS Anywhereといった大手パブリッククラウドプロバイダーが提供する複数のマネージドKubernetesサービスの標準手段になっていたという。</blockquote>
       </article>
     </main>
 
