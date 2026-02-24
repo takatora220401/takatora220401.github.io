@@ -47,6 +47,7 @@
         <p>また、実際のデータ処理がどうなっているかといいますと、iptablesモードでもnftablesモードでもルールにヒットしたパケットは<a href="https://kubernetes.io/docs/reference/networking/virtual-ips/#proxy-mode-iptables">ランダムに送信先Podが選択される</a>みたいです。</p>
         <h2>3. iptablesルールの確認</h2>
         <p>工事中</p>
+        <br>
         <h2>4. Kube-Proxyの将来</h2>
         <p>eBPFベースのCiliumというCNIではKube-Proxyは使いません。CiliumではeBPF技術によりLinuxカーネルに直接転送ルールやNetworkポリシーを書き込むことができるためパフォーマンス的に非常に優れているとされています。また、パフォーマンスに優れるだけでなくHabbleというコンポーネントを用いるとオブザーバビリティツールとしても活用できます。<a href="https://www.newsme.jp/itnews/cisco-to-acquire-isovalent-for-open-source-cloud-native-networking-and-security/">ネットの記事</a>ですが次のような記載も複数のソースで見つかりました。実績としても申し分ないです</p>
         <blockquote>Ciliumは実際にクラウドネイティブネットワーキングに使用されており、Google Kubernetes Engine、Google Anthos、Amazon EKS Anywhereといった大手パブリッククラウドプロバイダーが提供する複数のマネージドKubernetesサービスの標準手段になっていたという。</blockquote>
